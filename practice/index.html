@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Basis Testing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        /* The Parent Container */
+        .container {
+            display: flex;
+            border: 3px solid black;
+            padding: 10px;
+            background-color: #f0f0f0;
+            margin-bottom: 30px;
+        }
+
+        .box {
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* --------------------------------------------------
+           EXAMPLE 1: WITHOUT flex-basis (Default behavior)
+           The boxes will only be as wide as the text inside them.
+        -------------------------------------------------- */
+        .no-basis-1 { background-color: #ff4d4d; }
+        .no-basis-2 { background-color: #33cc33; }
+
+
+        /* --------------------------------------------------
+           EXAMPLE 2: WITH flex-basis
+           We set a starting width of 300px for Box A. 
+           We also turn OFF growing and shrinking so you see its true size.
+        -------------------------------------------------- */
+        .with-basis-1 {
+            background-color: #ff4d4d;
+            
+            flex-basis: 300px; /* Starts at 300px width! */
+            flex-grow: 0;      /* Do not grow past 300px */
+            flex-shrink: 0;    /* Do not shrink below 300px */
+        }
+
+        .with-basis-2 {
+            background-color: #33cc33;
+            /* This box uses default settings (fits its text) */
+        }
+    </style>
+</head>
+<body>
+
+    <h3>Example 1: Without flex-basis (Default)</h3>
+    <p>Notice how Box A is tiny. It only wraps tightly around the word "Box A".</p>
+    <div class="container">
+        <div class="box no-basis-1">Box A</div>
+        <div class="box no-basis-2">Box B</div>
+    </div>
+
+
+    <h3>Example 2: With flex-basis (Set to 300px)</h3>
+    <p>Notice how Box A is now exactly 300px wide, regardless of its short text.</p>
+    <div class="container">
+        <div class="box with-basis-1">Box A (300px)</div>
+        <div class="box with-basis-2">Box B</div>
+    </div>
+
+</body>
+</html>
