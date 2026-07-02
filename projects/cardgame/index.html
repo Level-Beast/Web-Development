@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+         .container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border: 2px solid red;
+        }
+        .box {
+            /* Math: 100% width divided by 3 columns = 33.33% 
+               This guarantees EXACTLY 3 boxes per row, no matter how big the screen is!
+            */
+            flex-basis: 33.33%; 
+            height: 400px; /* Giving them a temporary height so you can see them */
+            border: 2px solid green;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box" data-card-value="1">click to see number</div>
+        <div class="box" data-card-value="2">click to see number</div>
+        <div class="box" data-card-value="3">click to see number</div>
+        <div class="box" data-card-value="4">click to see number</div>
+        <div class="box" data-card-value="5">click to see number</div>
+        <div class="box" data-card-value="6">click to see number</div>
+        <div class="box" data-card-value="7">click to see number</div>
+        <div class="box" data-card-value="8">click to see number</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
