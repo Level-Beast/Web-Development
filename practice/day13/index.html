@@ -1,49 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        .challenge{
-            height: 40vh;
-            border: 2px solid red;
-            margin-top: 40px;
-        }
-        .one{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
-          .two{
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Layout: Grid + Flexbox</title>
+  <style>
+    /* ===================================================
+       1. GLOBAL STYLES & MASTER GRID RESET
+       =================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        .box{
-            height: 150px;
-            border: 4px solid green;
-        }
-    </style>
+    body {
+      background-color: #f3f4f6;
+      color: #1f2937;
+      
+      /* MASTER GRID: ਪੂਰੇ ਪੇਜ ਨੂੰ 3 ਰੋਅ ਵਿੱਚ ਵੰਡਿਆ (Header, Main, Footer) */
+      display: grid;
+      grid-template-rows: 70px 1fr 60px;
+      min-height: 100vh; /* ਪੂਰੀ ਸਕ੍ਰੀਨ ਦੀ ਉਚਾਈ */
+    }
+
+    /* ===================================================
+       2. HEADER USING FLEXBOX (For Inner Content Alignment)
+       =================================================== */
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 0 40px;
+      
+      /* FLEXBOX: ਲੋਗੋ ਖੱਬੇ ਪਾਸੇ ਅਤੇ ਲਿੰਕਸ ਸੱਜੇ ਪਾਸੇ ਸਿੱਧੀ ਲਾਈਨ ਵਿੱਚ ਕਰਨ ਲਈ */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header ul {
+      display: flex;
+      list-style: none;
+      gap: 20px; /* ਲਿੰਕਸ ਵਿਚਕਾਰ ਸਪੇਸ */
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ===================================================
+       3. MAIN LAYOUT USING CSS GRID (For Structural Layout)
+       =================================================== */
+    main {
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    /* PRODUCT GRID: ਕਾਰਡਸ ਨੂੰ ਬਿਨਾਂ ਮੀਡੀਆ ਕੁਐਰੀ ਦੇ ਰਿਸਪਾਂਸਿਵ ਬਣਾਉਣ ਲਈ */
+    .product-grid {
+      display: grid;
+      /* ਜਾਦੂਈ ਲਾਈਨ: ਸਕ੍ਰੀਨ ਮੁਤਾਬਕ ਆਪਣੇ ਆਪ ਕਾਲਮ ਬਣਨਗੇ (ਘੱਟੋ-ਘੱਟ 280px ਦੇ ਸਲਾਈਸ) */
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px; /* ਕਾਰਡਸ ਦੇ ਵਿਚਕਾਰ ਗੈਪ */
+    }
+
+    /* ===================================================
+       4. CARDS USING FLEXBOX (For Inner Content Vertical Alignment)
+       =================================================== */
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      
+      /* FLEXBOX (Vertical): ਕੰਟੈਂਟ ਨੂੰ ਉੱਪਰ ਤੋਂ ਹੇਠਾਂ ਇੱਕ ਲਾਈਨ ਵਿੱਚ ਰੱਖਣ ਲਈ */
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* FEATURED CARD: ਪਹਿਲੇ ਕਾਰਡ ਨੂੰ 2 ਕਾਲਮਾਂ ਜਿੰਨੀ ਵੱਡੀ ਜਗ੍ਹਾ ਦੇਣ ਲਈ (CSS Grid Feature) */
+    .card.featured {
+      grid-column: span 2;
+      background-color: #eff6ff;
+      border: 2px solid #3b82f6;
+    }
+
+    .card-image {
+      height: 180px;
+      background-color: #cbd5e1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .card-content {
+      padding: 20px;
+      
+      /* FLEXBOX: ਇਸ ਨਾਲ ਬਟਨ ਹਮੇਸ਼ਾ ਕਾਰਡ ਦੇ ਬਿਲਕੁਲ ਹੇਠਾਂ (Bottom) ਫਿਕਸ ਰਹੇਗਾ */
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1; 
+    }
+
+    .card-content p {
+      margin: 10px 0 20px 0;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+
+    .card-footer {
+      margin-top: auto; /* ਪੁਸ਼ (Push) ਬਟਨ ਟੂ ਬੌਟਮ */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1e3a8a;
+    }
+
+    .btn {
+      background-color: #3b82f6;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* ===================================================
+       5. FOOTER USING FLEXBOX
+       =================================================== */
+    footer {
+      background-color: #1f2937;
+      color: #9ca3af;
+      
+      /* FLEXBOX: ਟੈਕਸਟ ਨੂੰ ਬਿਲਕੁਲ ਸੈਂਟਰ ਵਿੱਚ ਕਰਨ ਲਈ */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-    <div class="challenge one">
-        <div class="box">box 1</div>
-        <div class="box">box 2</div>
-        <div class="box">box 3</div>
-        <div class="box">box 4</div>
+
+  <!-- 1. HEADER (Flexbox) -->
+  <header>
+    <div class="logo"><h3>ShopModern</h3></div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Cart</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 2. MAIN CONTENT CONTAINER (Grid) -->
+  <main>
+    <h2>Our Latest Products</h2>
+    
+    <!-- PRODUCT GRID (Grid Controls Layout) -->
+    <div class="product-grid">
+      
+      <!-- Card 1: Featured (Spans 2 columns using Grid) -->
+      <div class="card featured">
+        <div class="card-image" style="background-color: #bfdbfe;">★ Featured Item Image</div>
+        <div class="card-content">
+          <h3>Amazing Mega Product</h3>
+          <p>This is a featured product. It uses Grid "span 2" to look bigger than other cards, but inside it uses Flexbox to align this text and button perfectly!</p>
+          <div class="card-footer">
+            <span class="price">$299</span>
+            <button class="btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Regular (Flexbox inside) -->
+      <div class="card">
+        <div class="card-image">Product Image 2</div>
+        <div class="card-content">
+          <h3>Standard Product</h3>
+          <p>Short description text.</p>
+          <div class="card-footer">
+            <span class="price">$49</span>
+            <button class="btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Regular with heavy text (Flexbox inside) -->
+      <div class="card">
+        <div class="card-image">Product Image 3</div>
+        <div class="card-content">
+          <h3>Another Product</h3>
+          <p>This box has way more text than Card 2! But notice how the "Buy Now" button is still pushed perfectly to the bottom of the card because of Flexbox 'margin-top: auto'.</p>
+          <div class="card-footer">
+            <span class="price">$79</span>
+            <button class="btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="challenge two">
-        <div class="box">box 1</div>
-        <div class="box">box 2</div>
-        <div class="box">box 3</div>
-        <div class="box">box 4</div>
-        <div class="box">box 5</div>
-        <div class="box">box 6</div>
-    </div>
+  </main>
+
+  <!-- 3. FOOTER (Flexbox) -->
+  <footer>
+    <p>&copy; 2026 ShopModern. All rights reserved.</p>
+  </footer>
+
 </body>
-</html>  
+</html>

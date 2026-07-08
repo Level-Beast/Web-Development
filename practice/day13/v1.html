@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .challenge{
+            border: 2px dotted brown;
+            margin-bottom: 40px;
+        }
+        .one{
+            display: grid;
+            grid-template-columns:repeat(3,1fr) ;
+            gap: 10px;
+        }
+        .box{
+         border: 2px solid red;
+         height: 150px;
+         border-radius: 12px;
+        }
+        .dashbored{
+            display: grid;
+            grid-template-columns:1fr 4fr;
+            padding: 20px;
+            gap: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="challenge one">
+        <div class="box">Img 1</div>
+        <div class="box">Img 2</div>
+        <div class="box">Img 3</div>
+        <div class="box">Img 4</div>
+        <div class="box">Img 5</div>
+        <div class="box">Img 6</div>
+        <div class="box">Img 7</div>
+        <div class="box">Img 8</div>
+        <div class="box">Img 9</div>
+    </div>
+    <div class="challenge dashbored">
+        <div class="box">Sidebar</div>
+        <div class="box"></div>
+    </div>
+</body>
+</html>
