@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.container{
+    position:relative;
+    width:300px;
+    height:300px;
+    border:2px solid black;
+}
+
+.red{
+    position:absolute;
+    width:150px;
+    height:150px;
+    background:red;
+    z-index: 999;
+    top:50px;
+    left:50px;
+}
+
+.blue{
+    position:absolute;
+    width:150px;
+    height:150px;
+    background:blue;
+
+    top:100px;
+    left:100px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="red"></div>
+    <div class="blue"></div>
+</div>
+
+</body>
+</html>
