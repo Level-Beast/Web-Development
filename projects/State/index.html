@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* The main container for your game */
+.petGame {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+/* Keeps the status and the pet aligned nicely */
+.petGroup {
+    margin-bottom: 20px;
+}
+
+/* Style for the stats text (Hunger, Energy, etc.) */
+.statusofpet {
+    background-color: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Makes your dog emoji big and bouncy */
+.pet {
+    font-size: 70px;
+    margin: 20px 0;
+}
+
+/* Base style for all buttons */
+.Btn {
+    font-size: 15px;
+    padding: 10px 18px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    transition: background 0.2s;
+}
+
+/* Individual button colors */
+.play {
+    background-color: #ff9f43; /* Orange */
+}
+
+.feed {
+    background-color: #10ac84; /* Green */
+}
+
+.sleep {
+    background-color: #54a0ff; /* Blue */
+}
+
+/* Adds a subtle hover effect when mouse moves over buttons */
+.Btn:hover {
+    opacity: 0.9;
+}
+    </style>
+</head>
+<body>
+    <div class="petGame">
+        <div class="petGroup">
+            <div class="statusofpet">
+                <div class="petname">Pet Name: Karan</div>
+                <div class="pethunger">Pet Hunger: 85%</div>
+                <div class="petenergy">Pet energy: 88%</div>
+                <div class="pethapiness">Pet Happiness: 55%</div>
+            </div>
+            <div class="pet">🐶</div>
+        </div>
+        <button class="play Btn">Play</button>
+        <button class="feed Btn">Feed</button>
+        <button class="sleep Btn">Sleep</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
