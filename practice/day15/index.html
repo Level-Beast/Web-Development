@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .navBar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 44px;
+        }
+        .links{
+            display: flex;
+            gap: 20px;
+        }
+        .boxesContainer{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        @media(max-width:768px){
+            .boxesContainer{
+                flex-direction: column;
+            }
+        }
+        @media(max-width:768px){
+            .navBar{
+                padding: 0;
+             
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .links{
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navBar">
+        <div class="logo">Logo</div>
+        <div class="links">
+        <a href="">Home</a>
+        <a href="">About</a>
+        <a href="">Contact</a>
+        </div>
+    </nav>
+    <div class="boxesContainer">
+        <div class="box">Box 1</div>
+        <div class="box">Box 2</div>
+        <div class="box">Box 3</div>
+    </div>
+</body>
+</html>

@@ -1,9 +1,10 @@
 const atmContainer=document.querySelector(".atmcontainer");
-
+const messageDisplay=document.querySelector(".messageDisplay");
+const result=document.querySelector(".result");
 function atmSimulator(event){
     const target=event.target;
     if(target.classList.contains("Deposit")){
-        depositBtn();
+        ui();
         return;
     }
       if(target.classList.contains("withDraw")){
@@ -15,10 +16,16 @@ function atmSimulator(event){
         return;
     }
 }
-function depositBtn(){
+function ui(){
+    messageDisplay.innerHTML="Deposit the amount";
+    
+}
+function withDraw(){
 
 }
+function  checkBalance(){
 
+}
 
 
 
