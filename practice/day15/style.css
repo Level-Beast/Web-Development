@@ -1,0 +1,87 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.navBar{
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.links{
+    display: flex;
+    gap: 40px;
+}
+.btn{
+    padding: 12px 18px;
+    border-radius: 12px;
+    background-color: gray  ;
+}
+.Hero{
+    display: flex;
+    min-height: 40vh;
+    justify-content: space-evenly;
+}
+.heroContent{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+}
+.heading{font-size: 1.8rem;}
+.heroContent p{
+    font-size: 1.4rem;
+}
+.buttonGroup{
+    display: flex;
+    gap: 40px   ;
+}
+.imagePlaceholder{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+    gap: 20px;
+    padding: 20px 40px;
+}
+.card{
+    height: 450px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 44px;
+}
+.whyChooseUs{
+    padding: 20px 44px;
+}
+.Testimonials{
+    padding: 20px 44px;
+}
+.footerNav{
+    padding: 20px 44px;
+    display: flex;
+    min-height: 20vh;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.CTAForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-direction: column;
+}
+.footerLinks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+}
