@@ -1,0 +1,81 @@
+*{
+    background-color: gray  ;
+}
+/* .container{
+    border: 2px solid red;
+    display: flex;
+    padding: 20px;
+    height: 100vh;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+}
+.sidebar{
+    flex-grow: 2;
+    padding: 20px;
+    border: 2px solid red;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.content{
+    flex-grow: 4;
+    border: 2px solid red;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+/* challenge 2 css 
+.container{
+    border: 2px solid red;
+    display: flex;
+    padding: 20px;
+    height: 10vh;
+    align-items: center;
+    gap: 20px;
+}
+.card{
+    border: 2px solid red;
+    flex-grow: 1;
+} */ 
+ /* challenge 3 css  */
+ /* .container{
+    border: 2px solid red;
+    display: flex;
+    padding: 20px;
+    height: 10vh;
+    align-items: center;
+    gap: 20px;
+    justify-content: center
+}
+input{
+    flex-grow: 1;
+}
+button{
+    flex-grow: 0;
+} */
+ /* .container{
+    border: 2px solid red;
+    display: flex;
+    padding: 20px;
+    height: 40vh;
+    align-items: center;
+    gap: 20px;
+    justify-content: center
+}
+.left{
+    flex-grow: 1;
+}
+.right{
+    flex-grow: 2;
+} */
+.container{
+    display:flex;
+    justify-content:space-between;
+}
+
+.links{
+    display:flex;
+    gap:20px;
+}
