@@ -142,5 +142,12 @@
     flex: 1;
 }
 .right_content{
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    justify-content: center ;
+    align-items: center;
+    padding: 22px 0px;
+    gap: 22px;
+    border: 2px solid gray;
 }
