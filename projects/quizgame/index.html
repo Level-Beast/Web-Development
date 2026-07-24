@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            background-color: slategray;
+        }
+    </style>
+</head>
+<body>
+    hii
+    <script>
+        const Questions=[
+            {
+    question: "What is the capital city of India?",
+    options: ["A) Mumbai", "B) New Delhi", "C) Kolkata", "D) Chennai"],
+    answer: "B"
+},
+{
+    question: "Which river is considered the holiest river in India?",
+    options: ["A) Ganga", "B) Yamuna", "C) Godavari", "D) Narmada"],
+    answer: "A"
+},
+{
+    question: "Who is known as the Father of the Nation in India?",
+    options: ["A) Jawaharlal Nehru", "B) Bhagat Singh", "C) Mahatma Gandhi", "D) Dr. B.R. Ambedkar"],
+    answer: "C"
+},
+{
+    question: "Which Indian festival is known as the Festival of Lights?",
+    options: ["A) Holi", "B) Diwali", "C) Eid", "D) Dussehra"],
+    answer: "B"
+},
+{
+    question: "What is the national animal of India?",
+    options: ["A) Asiatic Lion", "B) Elephant", "C) Royal Bengal Tiger", "D) Leopard"],
+    answer: "C"
+}
+        ]
+        function askQuestions(){
+            for(let i=1;i<=Questions.length;i++){
+                prompt(Questions[i].question)
+            }
+        }
+        askQuestions(); 
+    </script>
+</body>
+</html>
