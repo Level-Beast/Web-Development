@@ -19,3 +19,60 @@
     display: flex;
     gap: 22px;
 }
+   /* so i was thinking man ok but shouldn't space should be given to parent instead of container like container is inside or it just works regardless ? */
+.Hero .container{
+    display: flex;
+    justify-content: space-between;
+    height: 30vh;
+    border: 2px solid rgb(0, 64, 255) ;
+}
+.heroContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 22px;
+    flex: 4;
+    border: 2px solid red;
+    padding: 22px;
+}
+.image{
+    flex: 6;
+}
+.heading{
+    padding: 22px 44px;
+}
+.featurestatslist{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0px 22px;
+}
+.featurecards{
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-items: start;
+}
+.featurecard{
+    display: flex;
+    flex-basis: 150px;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid red;
+    padding: 44px 22px;
+}
+.contentSection .container{
+display: flex;
+flex-direction: column;
+gap: 22px;
+justify-content: center;
+align-items: center;
+}
+.contentimage{
+    width: 100%;
+    display: flex;
+    gap: 22px   ;
+    border: 2px solid red;
+    padding: 22px;
+    justify-content: space-between;
+} 
