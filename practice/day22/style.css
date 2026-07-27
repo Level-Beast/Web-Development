@@ -1,0 +1,33 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.container{
+    padding: 28px 22px;
+    width: 100%;
+    max-width: 1200px;
+    border: 2px solid red;
+    margin: 0 auto;
+}.navbar .container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.left{
+    display:flex;
+    align-items:center;
+    gap:2rem;
+}
+
+.links{
+    display:flex;
+    gap:1.5rem;
+}
+
+.right{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+}
