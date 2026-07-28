@@ -96,6 +96,9 @@
     align-items: center;
     list-style: none;
 }
+.features-section{
+    padding: 58px 0px;
+}
 .features-cards{
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -120,6 +123,9 @@
     flex-direction: column;
     gap: 12px;
     text-align: center;
+}
+.pricing-section{
+    padding: 58px;
 }
 .pricing-cards{
     display: grid;
@@ -155,15 +161,16 @@
 span{
     color: #019985;
 }
+.Blog-section{
+    padding: 58px 0px;
+}
 .blog-layout{
     display: flex;
     flex-direction: column;
-    border: 2px solid red;
     gap: 22px;
 }
 
 .blog-card{
-    border: 2px solid red;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -172,7 +179,6 @@ span{
     padding: 18px;
 }
 .blogimage{
-    border: 2px solid red;
     width: 100%;
 }
 .image{
@@ -185,4 +191,13 @@ span{
 .blog-cards{
     display: grid;
     grid-template-columns: repeat(3,1fr);
+}
+.blog-content h3 {
+ margin-bottom: 22px;
+}
+.blog-content p {
+ margin-bottom: 22px;
+}
+.blog-content button {
+ background-color: #019985;
 }
