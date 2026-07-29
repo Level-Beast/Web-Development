@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const vehicalsAllowed=["Car","Bike","Truck"];
+        function parkingBill(){
+        let vehicalType=prompt("Man what is ur vehical type select A for moterbike B for Truck and C for Car?");
+        if(vehicalType===""){
+            console.log("man fill the right thing")
+            return };
+        let parkingtime=Number(prompt("For how many hours u wanna park this shit here ?"));
+        calculate(vehicalType ,parkingtime);
+        }
+        function calculate(vehical ,parkingtime){
+            console.log(`ur vehical type is ${vehical} and ur parking time is ${parkingtime}`)
+        }
+        parkingBill();
+    </script>
+</body>
+</html>
