@@ -73,13 +73,77 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 14px;
 }
 .heading-wrapper h2 {
     color: #2C3E50;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 600;
 }
 .portfolio-cards{
-    
+    display: grid;
+    grid-template-columns: repeat(3,1fr);    
+    gap: 12px;
+}
+.portfolio-card {
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 24px; /* 60px top/bottom makes it tall, 24px left/right keeps it safe */
+    background-color: #f4f4f4; /* Added so you can see the card body */
+}
+.about-section{
+    background-color: #19BC9C;
+    padding: 56px 0px;
+    color: whitesmoke;
+}
+.about-layout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    gap: 22px;
+}
+.about-content{
+    padding: 22px;
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+}
+.about-content p {
+    line-height: 1.4;
+    font-size: 1.2rem;
+}
+.btn{
+    border: 2px solid white;
+    background-color: transparent;
+    padding: 12px 32px;
+    color: whitesmoke;
+    font-size: 1.2rem;
+    border-radius: 6px;
+}
+.footer-layout{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+footer{
+    padding: 56px 0px;
+    background-color: #2C3E50;
+    color: whitesmoke;
+}
+.location-info{
+    text-align: center;
+    line-height: 1.2;
+}
+.socials{
+    text-align: center;
+}
+.about-freelancer{
+    text-align: center;
 }
 
