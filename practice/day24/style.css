@@ -1,1 +1,85 @@
-  
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
+
+}
+.main-nav{
+    background-color: #2C3E50;
+    padding: 32px 0px;
+}
+.container{
+    width: 100%;
+    max-width: 1200px;
+    padding: 0px 42px;
+    margin: 0 auto;
+}
+.nav-layout{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: whitesmoke;
+}
+.nav-links{
+    display: flex;
+    gap: 32px;
+}
+.nav-links a {
+    text-decoration: none;   
+    color: whitesmoke;   
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.logowrapper{
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+.hero-section{
+    background-color:#19BC9C ;
+    padding: 68px;
+}
+.hero-layout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding: 44px 0px;
+}
+.hero-image {
+    border: 2px solid red;
+    width: 300px;           
+    height: 300px;          
+    border-radius: 50%;     
+    object-fit: cover;      
+    padding: 0px;           
+}
+.hero-section h1 {
+    font-size: 3.6rem;
+    color: whitesmoke;
+    font-size: 600;
+}
+
+.hero-section p {
+    font-size: 1.4rem;
+    color: whitesmoke;
+    font-size: 600;
+}
+.portfolio-section{
+    padding: 48px 0px;
+}
+.heading-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.heading-wrapper h2 {
+    color: #2C3E50;
+    font-size: 2rem;
+    font-weight: 600;
+}
+.portfolio-cards{
+    
+}
+
