@@ -64,3 +64,9 @@ if(prices[3]>100){
 check();
 // check();
 // check();
+
+const inventory = [
+    "Keyboard",
+    "Mouse",
+    "Monitor"
+];
