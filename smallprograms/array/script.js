@@ -23,20 +23,44 @@
 // console.log(tasks);
 
  //first thing  i will look for the index which i have to replace once removed i will add new to it 
- const bag = [];
- bag.push("Notebook");
- console.log(bag);
- bag.push("Pen");
- console.log(bag);
- bag.push("Laptop");
- console.log(bag);
- bag.push("Mouse");
- console.log(bag);
+//  const bag = [];
+//  bag.push("Notebook");
+//  console.log(bag);
+//  bag.push("Pen");
+//  console.log(bag);
+//  bag.push("Laptop");
+//  console.log(bag);
+//  bag.push("Mouse");
+//  console.log(bag);
 
-//challenge 2
-bag[1]="Keyboard";
-bag.push("Headphone");
+// //challenge 2
+// bag[1]="Keyboard";
+// bag.push("Headphone");
 
 //challenge 3
 //it will look like this 
 // an array with 4 index first three empty and 4th one is with 100 and its lenght is 1 cuz lenght see all the elements but ikd if it also count empty lol if empty then 4 but this question is kinda tuff lol 
+
+
+const prices = [50, 120, 80, 200];const prices = [50, 120, 80, 200];
+function check(){
+if(prices[0]>100){
+    console.log(prices[0]);
+}
+
+if(prices[1]>100){
+    console.log(prices[1]);
+}
+
+if(prices[2]>100){
+    console.log(prices[2]);
+}
+
+if(prices[3]>100){
+    console.log(prices[3]);
+}
+}
+
+check();
+// check();
+// check();
