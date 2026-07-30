@@ -1,0 +1,69 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif; /* Cleaner visual base */
+}
+
+/* Stretches completely across the display window */
+.uppernav {
+    background-color: #f0e2d0; /* Soft warm cream tone matching Ugmonk */
+    text-align: center;
+    padding: 8px 0;
+}
+
+.uppernav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Main white nav row with a subtle bottom divider line */
+.main-nav {
+    background-color: #ffffff;
+    border-bottom: 1px solid #eaeaea;
+    padding: 20px 0;
+}
+
+/* Keeps inside items centered while allowing room to breathe */
+.container {
+    width: 90%;
+    max-width: 1400px; /* Wider bound to match premium layouts */
+    margin: 0 auto;
+}
+
+/* Separates logo, primary links, and utility icons into three distinct zones */
+.lowernav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Clean, spaced-out brand typography */
+.logo {
+    font-weight: bold;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: #111;
+}
+
+/* Layout spacing for navigation links */
+.nav-links a {
+    color: #444;
+    text-decoration: none;
+    margin-right: 24px;
+    font-size: 15px;
+}
+
+.nav-links a:last-child {
+    margin-right: 0;
+}
+
+/* Right-aligned icon elements */
+.authenticationlinks a {
+    color: #333;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 18px;
+}
