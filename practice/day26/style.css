@@ -110,4 +110,97 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(26px);
+}/* Pricing Grid Layout */
+.lowerbox {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
+    gap: 30px;                             /* Space between cards */
+    margin-top: 48px;                      /* Pushes cards away from the header switch */
+    font-family: sans-serif;
+}
+
+/* Individual Card Styling */
+.lowerbox-cards {
+    background-color: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 32px;
+    text-align: left;                     /* Pricing cards look best left-aligned */
+    display: flex;
+    flex-direction: column;                /* Stack content vertically */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Typography Inside Cards */
+.lowerbox-cards h2 {
+    font-size: 24px;
+    color: #1A202C;
+    margin-bottom: 12px;
+}
+
+.lowerbox-cards > p:first-of-type {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 24px;
+    line-height: 1.5;
+    min-height: 42px;                     /* Keeps text boxes uniform even if descriptions change length */
+}
+
+/* Large Price Formatting */
+.lowerbox-cards > p:nth-of-type(2) {
+    font-size: 40px;
+    font-weight: 700;
+    color: #1A202C;
+    margin-bottom: 28px;
+}
+
+.lowerbox-cards > p:nth-of-type(2) span {
+    font-size: 40px;                      /* Keeps the number large */
+}
+
+/* Features List Styling */
+.features {
+    list-style: none;                     /* Removes standard bullet points */
+    margin-bottom: 32px;
+    flex-grow: 1;                         /* Pushes the button to the absolute bottom of the card */
+}
+
+.features li {
+    font-size: 14px;
+    color: #4A5568;
+    margin-bottom: 14px;
+    position: relative;
+    padding-left: 24px;                    /* Makes room for a custom checkmark */
+}
+
+/* Custom Green Checkmark icon using pure CSS */
+.features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #01A37E;                       /* Brand green */
+    font-weight: 700;
+}
+
+/* Button Formatting */
+.featurebtn {
+    width: 100%;
+}
+
+.featurebtn button {
+    width: 100%;
+    padding: 14px;
+    background-color: transparent;
+    color: #01A37E;
+    border: 2px solid #01A37E;            /* Outlined button look */
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.featurebtn button:hover {
+    background-color: #01A37E;            /* Fills green on hover */
+    color: #ffffff;
 }
