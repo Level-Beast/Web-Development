@@ -1,95 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notion Style Layout</title>
-  <style>
-    /* Reset and base styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: sans-serif;
-      background-color: #ffffff;
-    }
-
-    /* 1. Full-width Section Wrappers */
-    .nav-wrapper {
-      width: 100%;
-      border-bottom: 1px solid #eaeaea;
-    }
-    .main-wrapper {
-      width: 100%;
-      padding-top: 60px; /* Spacing below the nav */
-    }
-
-    /* 2. Independent Inner Containers */
-    /* Wide container just for the navigation bar */
-    .nav-container {
-      max-width: 1440px; 
-      margin: 0 auto;    /* Centers the container horizontally */
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* Narrower container for the core website content */
-    .content-container {
-      max-width: 1080px; 
-      margin: 0 auto;    /* Centers the container horizontally */
-      padding: 0 24px;
-    }
-
-    /* Example styles for content grids */
-    .grid-2-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      margin-top: 40px;
-    }
-    .card {
-      background: #f7f7f7;
-      border: 1px solid #efefef;
-      border-radius: 12px;
-      padding: 40px;
-      height: 300px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notion Clone</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- NAVIGATION: Wide structural track -->
-  <header class="nav-wrapper">
-    <div class="nav-container">
-      <div class="logo"><strong>N</strong> Notion</div>
-      <nav class="nav-links">Product | Solutions | Pricing</nav>
-      <div class="nav-buttons"><button>Get Notion free</button></div>
-    </div>
-  </header>
-
-  <!-- MAIN BODY: Narrower, readable structural track -->
-  <main class="main-wrapper">
-    <div class="content-container">
-      
-      <h1>AI where your team works.</h1>
-      
-      <div class="grid-2-col">
-        <div class="card">
-          <h2>Capture knowledge</h2>
-          <p>Bring everything into one system of record.</p>
+    <!-- SITE HEADER -->
+    <header class="site-header container">
+        <div class="header-logo">
+            <img src="notion-logo.svg" alt="Notion Logo">
         </div>
-        <div class="card">
-          <h2>Find answers</h2>
-          <p>Get answers, instantly—with citations.</p>
+        
+        <nav class="nav-links">
+            <a href="#" class="has-dropdown">Product</a>
+            <a href="#" class="has-dropdown">Resources</a>
+            <a href="#">Developers</a>
+            <a href="#">Enterprise</a>
+            <a href="#">Pricing</a>
+            <a href="#">Request a demo</a>
+        </nav>
+        
+        <div class="auth-buttons">
+            <a href="#" class="btn-text">Log in</a>
+            <a href="#" class="btn-primary">Get Notion free</a>
         </div>
-      </div>
+    </header>
 
-    </div>
-  </main>
+    <!-- MAIN BODY CONTENT -->
+    <main class="main-content">
+        
+        <!-- HERO SECTION Wrapper holds all background elements relative to it -->
+        <section class="hero-section container">
+            
+            <!-- Floating Little Illustrations (Positioned absolutely relative to .hero-section) -->
+            <img src="avatar-row.png" class="hero-avatars" alt="Team avatars">
+            <img src="floating-icon1.png" class="float-icon pos-left" alt="">
+            <img src="floating-icon2.png" class="float-icon pos-right" alt="">
+            
+            <!-- Central Layout Context -->
+            <div class="hero-text-layout">
+                <h1>Where teams and agents <span class="highlight-pill">Scale together.</span></h1>
+                <p>Capture context, find answers, and automate tasks with AI built for your team.</p>
+                
+                <div class="hero-actions">
+                    <a href="#" class="btn-primary">Get Notion free</a>
+                    <a href="#" class="btn-secondary">Request a demo</a>
+                </div>
+            </div>
+
+            <!-- PRODUCT SHOWCASE INTERFACE CONTAINER -->
+            <div class="app-screenshot-wrapper">
+                <!-- Floating corner characters around the UI dashboard -->
+                <img src="char-left.png" class="char-anchor left-side" alt="">
+                <img src="char-right.png" class="char-anchor right-side" alt="">
+                
+                <div class="app-mockup">
+                    <img src="ramp-hq-screenshot.png" alt="Ramp HQ Workspace Workspace Interface">
+                </div>
+            </div>
+
+        
+    </main>
 
 </body>
 </html>
