@@ -1,0 +1,546 @@
+
+    /* ==========================================================================
+       1. CSS RESET & GLOBAL VARIABLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-primary: #FF385C;
+      --color-primary-hover: #E00B41;
+      --color-text-dark: #222222;
+      --color-text-muted: #6A6A6A;
+      --color-border: #DDDDDD;
+      --color-border-light: #EBEBEB;
+      --color-bg-light: #F7F7F7;
+      --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --max-width-content: 1120px;
+    }
+
+    body {
+      font-family: var(--font-family);
+      color: var(--color-text-dark);
+      background-color: #FFFFFF;
+      line-height: 1.43;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* ==========================================================================
+       2. REUSABLE CONTAINER UTILITY
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: var(--max-width-content);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    /* ==========================================================================
+       3. HEADER NAVIGATION
+       ========================================================================== */
+    .site-header {
+      height: 80px;
+      border-bottom: 1px solid var(--color-border-light);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background-color: #FFFFFF;
+      z-index: 100;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #000000;
+    }
+
+    .brand-logo svg {
+      fill: var(--color-primary);
+      width: 32px;
+      height: 32px;
+    }
+
+    .user-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+    }
+
+    .icon-btn:hover {
+      background-color: #F7F7F7;
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--color-border);
+      border-radius: 21px;
+      padding: 5px 5px 5px 12px;
+      transition: box-shadow 0.2s;
+      background: #FFFFFF;
+    }
+
+    .user-pill:hover {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+    }
+
+    /* ==========================================================================
+       4. HERO SECTION
+       ========================================================================== */
+    .hero-section {
+      padding: 56px 0 32px 0;
+      text-align: center;
+    }
+
+    .hero-container {
+      max-width: 680px; /* Constrained width so input doesn't stretch too wide */
+    }
+
+    .hero-title {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.6px;
+      margin-bottom: 24px;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: #F7F7F7;
+      border: 1px solid #DDDDDD;
+      border-radius: 40px;
+      padding: 6px 6px 6px 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      transition: box-shadow 0.2s, background 0.2s;
+    }
+
+    .search-box:focus-within {
+      background: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-color: #222222;
+    }
+
+    .search-input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 16px;
+      color: var(--color-text-dark);
+    }
+
+    .search-input::placeholder {
+      color: #717171;
+    }
+
+    .search-btn {
+      width: 48px;
+      height: 48px;
+      background-color: var(--color-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background-color 0.2s;
+    }
+
+    .search-btn:hover {
+      background-color: var(--color-primary-hover);
+    }
+
+    .search-btn svg {
+      stroke: #FFFFFF;
+      stroke-width: 3;
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ==========================================================================
+       5. CATEGORY TABS
+       ========================================================================== */
+    .tabs-nav {
+      border-bottom: 1px solid var(--color-border-light);
+      margin-top: 16px;
+      margin-bottom: 32px;
+    }
+
+    .tabs-list {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tabs-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-item {
+      padding-bottom: 14px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .tab-item:hover {
+      color: var(--color-text-dark);
+    }
+
+    .tab-item.active {
+      color: var(--color-text-dark);
+      font-weight: 600;
+    }
+
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--color-text-dark);
+    }
+
+    /* ==========================================================================
+       6. CALLOUT BANNER
+       ========================================================================== */
+    .banner-card {
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 48px;
+      gap: 24px;
+    }
+
+    .banner-text h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .banner-text p {
+      font-size: 15px;
+      color: var(--color-text-muted);
+    }
+
+    .btn-login {
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background-color 0.2s;
+    }
+
+    .btn-login:hover {
+      background-color: var(--color-primary-hover);
+    }
+
+    /* ==========================================================================
+       7. SECTION GENERAL HEADERS & GRIDS
+       ========================================================================== */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .link-action {
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: underline;
+      color: var(--color-text-dark);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px 24px;
+    }
+
+    /* ==========================================================================
+       8. CARD STYLES
+       ========================================================================== */
+    .guide-card {
+      cursor: pointer;
+    }
+
+    .card-media {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .card-media-dark {
+      background-color: #222222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .aircover-logo {
+      color: #FFFFFF;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .aircover-logo span {
+      color: var(--color-primary);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    /* ==========================================================================
+       9. TOP ARTICLES
+       ========================================================================== */
+    .article-item {
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .article-title {
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: underline;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .article-desc {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+
+    /* ==========================================================================
+       10. EXPLORE MORE & CONTACT ASIDE
+       ========================================================================== */
+    .explore-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+
+    .explore-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: var(--color-bg-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 320px;
+    }
+
+    .explore-card-graphic {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+
+    .explore-card-footer {
+      background-color: #222222;
+      color: #FFFFFF;
+      padding: 20px;
+    }
+
+    .explore-card-footer h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .explore-card-footer p {
+      font-size: 13px;
+      color: #DDDDDD;
+    }
+
+    .contact-box {
+      border: 1px solid var(--color-border-light);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-box h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .contact-box p {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      margin-bottom: 20px;
+    }
+
+    .btn-secondary {
+      background-color: #EBEBEB;
+      color: var(--color-text-dark);
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      transition: background-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background-color: #DDDDDD;
+    }
+
+    .contact-feedback {
+      font-size: 14px;
+      color: var(--color-text-dark);
+    }
+
+    .contact-feedback a {
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       11. FOOTER (FULL BLEED)
+       ========================================================================== */
+    .site-footer {
+      background-color: var(--color-bg-light);
+      border-top: 1px solid var(--color-border-light);
+      padding: 48px 0;
+      margin-top: 64px;
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--color-text-dark);
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* ==========================================================================
+       12. RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 900px) {
+      .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .explore-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .grid-2, .grid-3, .footer-columns {
+        grid-template-columns: 1fr;
+      }
+      .banner-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .btn-login {
+        width: 100%;
+        text-align: center;
+      }
+      .hero-title {
+        font-size: 28px;
+      }
+    }
+  

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airbnb Help Centre</title>
+  <link rel="stylesheet" href="gemini.css">
+</head>
+<body>
+
+  <!-- 1. HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="brand-logo">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836l.145.353c.667 1.591.91 2.472.96 3.396l.011.315c0 4.408-3.6 8-8 8-2.52 0-4.78-1.182-6.264-3.036L16 28.81l-1.236.353C13.28 30.818 11.02 32 8.5 32c-4.4 0-8-3.592-8-8 0-.924.243-1.805.91-3.396l.145-.353c.986-2.296 5.146-11.006 7.1-14.836l.533-1.025C10.537 1.963 11.992 1 14 1h2zm0 2h-2c-1.32 0-2.317.65-3.411 2.608l-.427.822C8.293 10.158 4.2 18.73 3.282 20.871l-.105.253c-.538 1.282-.777 1.95-.817 2.65L2.35 24c0 3.309 2.691 6 6 6 2.053 0 3.908-1.036 5.023-2.673l.427-.627h4.4l.427.627C19.742 28.964 21.597 30 23.65 30c3.309 0 6-2.691 6-6 0-.7-.04-1.368-.817-2.65l-.105-.253c-.918-2.141-5.011-10.713-6.88-14.441l-.427-.822C20.317 3.65 19.32 3 18 3h-2zm0 13a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"/>
+        </svg>
+        <span>Help Centre</span>
+      </a>
+
+      <nav class="user-nav">
+        <button class="icon-btn" aria-label="Language & Region">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm5.8 7H10.4a12.8 12.8 0 0 0-.8-4.2A6.5 6.5 0 0 1 13.8 7zM8 1.5c.7 1.2 1.3 3 1.4 5.5H6.6C6.7 4.5 7.3 2.7 8 1.5zM2.2 7a6.5 6.5 0 0 1 4.2-4.2A12.8 12.8 0 0 0 5.6 7H2.2zm0 2h3.4c.1 1.5.4 3 .8 4.2A6.5 6.5 0 0 1 2.2 9zm4.4 0h3.8c-.1 2.5-.7 4.3-1.4 5.5-.7-1.2-1.3-3-1.4-5.5zm4.2 4.2c.4-1.2.7-2.7.8-4.2h3.4a6.5 6.5 0 0 1-4.2 4.2z"/>
+          </svg>
+        </button>
+
+        <div class="user-pill">
+          <svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor">
+            <path d="M2 16h28M2 8h28M2 24h28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <svg viewBox="0 0 32 32" width="28" height="28" fill="#717171">
+            <path d="M16 1a15 15 0 1 0 15 15A15 15 0 0 0 16 1zm0 4a5 5 0 1 1-5 5 5 5 0 0 1 5-5zm0 22a10.9 10.9 0 0 1-8.3-3.8c.1-2.8 5.5-4.2 8.3-4.2s8.2 1.4 8.3 4.2a10.9 10.9 0 0 1-8.3 3.8z"/>
+          </svg>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 2. HERO SECTION -->
+    <section class="hero-section">
+      <div class="container hero-container">
+        <h1 class="hero-title">Hi, how can we help?</h1>
+        
+        <form class="search-box" onsubmit="event.preventDefault();">
+          <input type="text" class="search-input" placeholder="Search how-tos and more" aria-label="Search help center">
+          <button type="submit" class="search-btn" aria-label="Submit search">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M13 24a11 11 0 1 0 0-22 11 11 0 0 0 0 22zm8-3l9 9" stroke="currentColor"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 3. CONTENT AREA CONTAINER -->
+    <div class="container">
+      
+      <!-- Category Tabs -->
+      <nav class="tabs-nav" aria-label="User roles">
+        <ul class="tabs-list">
+          <li class="tab-item active">Guest</li>
+          <li class="tab-item">Home host</li>
+          <li class="tab-item">Experience host</li>
+          <li class="tab-item">Service host</li>
+          <li class="tab-item">Travel admin</li>
+        </ul>
+      </nav>
+
+      <!-- Banner Card -->
+      <section class="banner-card">
+        <div class="banner-text">
+          <h2>We're here for you</h2>
+          <p>Log in to get help with your reservations, account, and more.</p>
+        </div>
+        <button class="btn-login">Log in or sign up</button>
+      </section>
+
+      <!-- Guides Section -->
+      <section class="section">
+        <div class="section-header-flex">
+          <h2 class="section-title">Guides for getting started</h2>
+          <a href="#" class="link-action">Browse all topics &gt;</a>
+        </div>
+        
+        <div class="grid-2">
+          <article class="guide-card">
+            <div class="card-media card-media-dark">
+              <div class="aircover-logo">air<span>cover</span></div>
+            </div>
+            <h3 class="card-title">AirCover for guests</h3>
+          </article>
+          
+          <article class="guide-card">
+            <div class="card-media">
+              <div class="card-media-img" style="background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:bold;">
+                CALIFORNIA
+              </div>
+            </div>
+            <h3 class="card-title">Essential resources for new hosts</h3>
+          </article>
+        </div>
+      </section>
+
+      <!-- Top Articles Section -->
+      <section class="section">
+        <h2 class="section-title" style="margin-bottom: 24px;">Top articles</h2>
+        
+        <div class="grid-3">
+          <article class="article-item">
+            <a href="#" class="article-title">Cancel your home reservation as a guest</a>
+            <p class="article-desc">You can cancel or make changes to your home reservation in your trips.</p>
+          </article>
+
+          <article class="article-item">
+            <a href="#" class="article-title">Change the date or time of your service or experience reservation</a>
+            <p class="article-desc">When you book a service or experience, you can update the date or time depending on...</p>
+          </article>
+
+          <article class="article-item">
+            <a href="#" class="article-title">If your host cancels your home reservation</a>
+            <p class="article-desc">If your reservation is cancelled by your host, you'll get a full refund or we'll help you reboo...</p>
+          </article>
+
+          <article class="article-item">
+            <a href="#" class="article-title">Payment methods accepted</a>
+            <p class="article-desc">We support different payment methods depending on the country your payment...</p>
+          </article>
+
+          <article class="article-item">
+            <a href="#" class="article-title">Add or remove a payment method</a>
+            <p class="article-desc">Find out how to manage your payment methods.</p>
+          </article>
+
+          <article class="article-item">
+            <a href="#" class="article-title">When you'll pay for your reservation</a>
+            <p class="article-desc">Timing differs by the type of booking you're making, how you're paying and the location o...</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Explore More Section -->
+      <section class="section">
+        <h2 class="section-title" style="margin-bottom: 24px;">Explore more</h2>
+        
+        <div class="explore-layout">
+          <div class="grid-2">
+            <div class="explore-card">
+              <div class="explore-card-graphic">👥</div>
+              <div class="explore-card-footer">
+                <h3>Our community policies</h3>
+                <p>How we build a foundation of trust.</p>
+              </div>
+            </div>
+            
+            <div class="explore-card">
+              <div class="explore-card-graphic">🛡️</div>
+              <div class="explore-card-footer">
+                <h3>Safety tips and guidelines</h3>
+                <p>Resources to help travellers stay safe.</p>
+              </div>
+            </div>
+          </div>
+
+          <aside class="contact-box">
+            <h3>Need to get in touch?</h3>
+            <p>We'll start with some questions and get you to the right place.</p>
+            <button class="btn-secondary">Contact us</button>
+            <div class="contact-feedback">
+              You can also <a href="#">give us feedback.</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 4. FOOTER (FULL BLEED) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-columns">
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="#">Help Centre</a></li>
+            <li><a href="#">Get help with a safety issue</a></li>
+            <li><a href="#">AirCover</a></li>
+            <li><a href="#">Anti-discrimination</a></li>
+            <li><a href="#">Disability support</a></li>
+            <li><a href="#">Cancellation options</a></li>
+            <li><a href="#">Report neighbourhood concern</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Hosting</h4>
+          <ul class="footer-links">
+            <li><a href="#">Airbnb your home</a></li>
+            <li><a href="#">Airbnb your experience</a></li>
+            <li><a href="#">Airbnb your service</a></li>
+            <li><a href="#">AirCover for Hosts</a></li>
+            <li><a href="#">Hosting resources</a></li>
+            <li><a href="#">Community forum</a></li>
+            <li><a href="#">Hosting responsibly</a></li>
+            <li><a href="#">Join a free hosting class</a></li>
+            <li><a href="#">Find a co-host</a></li>
+            <li><a href="#">Refer a host</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Airbnb</h4>
+          <ul class="footer-links">
+            <li><a href="#">2026 Summer Release</a></li>
+            <li><a href="#">Newsroom</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Investors</a></li>
+            <li><a href="#">Airbnb.org emergency stays</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
