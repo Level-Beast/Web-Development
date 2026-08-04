@@ -42,31 +42,54 @@
 // an array with 4 index first three empty and 4th one is with 100 and its lenght is 1 cuz lenght see all the elements but ikd if it also count empty lol if empty then 4 but this question is kinda tuff lol 
 
 
-const prices = [50, 120, 80, 200];const prices = [50, 120, 80, 200];
-function check(){
-if(prices[0]>100){
-    console.log(prices[0]);
-}
+// const prices = [50, 120, 80, 200];const prices = [50, 120, 80, 200];
+// function check(){
+// if(prices[0]>100){
+//     console.log(prices[0]);
+// }
 
-if(prices[1]>100){
-    console.log(prices[1]);
-}
+// if(prices[1]>100){
+//     console.log(prices[1]);
+// }
 
-if(prices[2]>100){
-    console.log(prices[2]);
-}
+// if(prices[2]>100){
+//     console.log(prices[2]);
+// }
 
-if(prices[3]>100){
-    console.log(prices[3]);
-}
-}
+// if(prices[3]>100){
+//     console.log(prices[3]);
+// }
+// }
 
-check();
 // check();
-// check();
+// // check();
+// // check();
 
-const inventory = [
-    "Keyboard",
-    "Mouse",
-    "Monitor"
-];
+// const inventory = [
+//     "Keyboard",
+//     "Mouse",
+//     "Monitor"
+// ];
+
+// const groceryList = ["Milk", "Bread", "Rice", "Apples"];
+
+// groceryList.push("Butter");
+// groceryList.unshift("Eggs");
+// groceryList[2]="Brown Rice"
+// groceryList.pop();
+// console.log(groceryList);
+
+const scores = [78, 43, 91, 66, 85];
+let highestscore=scores[0];
+let lowestscore=scores[0];
+for(let i=0;i<scores.length;i++){
+   if(scores[i]>highestscore){
+    highestscore=scores[i];
+   }
+     if(scores[i]>lowestscore){
+    lowestscore=scores[i];
+   }
+
+}
+console.log(highestscore);
+
