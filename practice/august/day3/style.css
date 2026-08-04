@@ -1,0 +1,24 @@
+/* 1. Parent section handles full screen width & light-blue background */
+.banner-section {
+  width: 100%; /* Spans edge-to-edge */
+  background-color: #f0f4f8; /* Light blue-grey background */
+  padding: 40px 0; /* Vertical space top & bottom */
+  border: 2px solid red;
+}
+
+/* 2. Container handles centering & max-width */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  border: 2px solid red;
+}
+
+/* 3. Banner Card turns container into a side-by-side Flexbox row */
+.banner-card {
+  display: flex;
+  justify-content: space-between; /* Text on left, button on right */
+  align-items: center;            /* Center button vertically with text */
+  gap: 20px;
+}

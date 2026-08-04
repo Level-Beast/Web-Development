@@ -1,0 +1,16 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.hero{
+    border: 2px solid red;
+    width: 100%;
+}
+.container{
+    width: 100%;
+    max-width: 2500px;
+    margin: 0 auto;
+    
+    border: 2px solid red;
+}
