@@ -1,0 +1,69 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #E9FAF1;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+}
+/* #E9FAF1 */
+.site-header{
+    padding-block: 40px;
+}
+.container{
+    width: 100%;
+    max-width: 1200px;
+    padding-inline:1.5rem;
+    margin: 0 auto;
+}
+.site-header-layout{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.link-group{
+    display: flex;
+    gap: 32px;
+}
+.logo{
+    font-size: 1.6rem;
+}
+.link-group a{
+    text-decoration: none;
+    color: #085034;
+}
+.text-center{
+    text-align: center;
+}
+.hero-heading h1{
+    font-size: 3rem;
+    font-weight: 600;
+    padding-bottom: 18px;
+}
+.subscriptionplans{
+    padding-block: 64px;
+    padding-inline: 54px;
+    display:flex;
+    align-items: center;
+}
+.planinfo{
+    flex-basis: 310px;
+    padding: 12px;
+}
+.planinfo h2{
+    font-size: 1.2rem;
+    color: #0ab070;
+}
+.planinfo ul { 
+    padding-block: 12px;
+}
+
+.planinfo li { 
+    line-height: 1.5;
+    margin-left: 12px;
+}
+
+
+
+    
