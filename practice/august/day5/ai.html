@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Linear</title>
+    <link rel="stylesheet" href="aistyle.css">
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <svg width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="4"/>
+                    <path d="M20 50L80 50M50 20L50 80" stroke="currentColor" stroke-width="4"/>
+                    <path d="M28 28L72 72" stroke="currentColor" stroke-width="4"/>
+                </svg>
+                <span>Linear</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#">Product</a>
+                <a href="#">Resources</a>
+                <a href="#">Customers</a>
+                <a href="#" class="active">Pricing</a>
+                <a href="#">Now</a>
+                <a href="#">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#" class="btn-text">Log in</a>
+                <a href="#" class="btn-signup">Sign up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        
+        <!-- Page Title -->
+        <h1 class="page-title">Pricing</h1>
+
+        <!-- Pricing Cards Section -->
+        <div class="pricing-grid">
+            
+            <!-- Free Plan -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Free</h2>
+                    <div class="price-box">
+                        <span class="amount">$0</span>
+                    </div>
+                    <p class="subtitle">Free for everyone</p>
+                </div>
+                <div class="divider"></div>
+                <ul class="features-list">
+                    <li><span class="check-icon">✓</span> Unlimited members</li>
+                    <li><span class="check-icon">✓</span> 2 teams</li>
+                    <li><span class="check-icon">✓</span> 250 issues</li>
+                    <li><span class="check-icon">✓</span> Agent platform</li>
+                    <li><span class="check-icon">✓</span> Linear Agent</li>
+                </ul>
+                <div class="card-footer">
+                    <a href="#" class="btn-card primary-dark">Get started</a>
+                </div>
+            </div>
+
+            <!-- Basic Plan -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Basic</h2>
+                    <div class="price-box">
+                        <span class="amount">$10</span>
+                        <span class="period">per user/month</span>
+                    </div>
+                    <div class="toggle-row">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span class="toggle-label">Billed yearly</span>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <ul class="features-list">
+                    <li><span class="check-icon">✓</span> All Free features +</li>
+                    <li><span class="check-icon">✓</span> 5 teams</li>
+                    <li><span class="check-icon">✓</span> Unlimited issues</li>
+                    <li><span class="check-icon">✓</span> Unlimited file uploads</li>
+                    <li><span class="check-icon">✓</span> Admin roles</li>
+                </ul>
+                <div class="card-footer">
+                    <a href="#" class="btn-card primary-dark">Get started</a>
+                </div>
+            </div>
+
+            <!-- Business Plan -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Business</h2>
+                    <div class="price-box">
+                        <span class="amount">$16</span>
+                        <span class="period">per user/month</span>
+                    </div>
+                    <div class="toggle-row">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span class="toggle-label">Billed yearly</span>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <ul class="features-list">
+                    <li><span class="check-icon">✓</span> All Basic features +</li>
+                    <li><span class="check-icon">✓</span> Unlimited teams</li>
+                    <li><span class="check-icon">✓</span> Private teams and guests</li>
+                    <li><span class="check-icon">✓</span> Triage Intelligence</li>
+                    <li><span class="check-icon">✓</span> Loops</li>
+                    <li><span class="check-icon">✓</span> Code Intelligence (beta)</li>
+                    <li><span class="check-icon">✓</span> Linear Insights</li>
+                    <li><span class="check-icon">✓</span> Linear Asks</li>
+                    <li><span class="check-icon">✓</span> Zendesk and Intercom integrations</li>
+                </ul>
+                <div class="card-footer dual-btn">
+                    <a href="#" class="btn-card primary-light">Get started</a>
+                    <a href="#" class="btn-card secondary-dark">Contact sales</a>
+                </div>
+            </div>
+
+            <!-- Enterprise Plan -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Enterprise</h2>
+                    <div class="price-box">
+                        <span class="amount text-custom">Custom</span>
+                    </div>
+                    <p class="subtitle">Annual billing only</p>
+                </div>
+                <div class="divider"></div>
+                <ul class="features-list">
+                    <li><span class="check-icon">✓</span> All Business features +</li>
+                    <li><span class="check-icon">✓</span> Invoice/PO billing</li>
+                    <li><span class="check-icon">✓</span> SAML and SCIM</li>
+                    <li><span class="check-icon">✓</span> Granular admin controls</li>
+                    <li><span class="check-icon">✓</span> Enterprise-grade security</li>
+                    <li><span class="check-icon">✓</span> Advanced org modeling</li>
+                    <li><span class="check-icon">✓</span> Migration & onboarding support</li>
+                    <li><span class="check-icon">✓</span> Priority support</li>
+                    <li><span class="check-icon">✓</span> Account management</li>
+                </ul>
+                <div class="card-footer">
+                    <a href="#" class="btn-card primary-dark">Contact sales</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Trust Section / Customer Logos -->
+        <section class="trusted-section">
+            <p class="trusted-text">Trusted by more than <strong>40,000</strong> companies</p>
+            <div class="logos-grid">
+                <span class="logo-item font-vercel">▲ Vercel</span>
+                <span class="logo-item font-cursor">⬡ CURSOR</span>
+                <span class="logo-item font-oscar">oscar</span>
+                <span class="logo-item font-openai">OpenAI</span>
+                <span class="logo-item font-coinbase">coinbase</span>
+                <span class="logo-item font-cashapp">$ Cash App</span>
+                <span class="logo-item font-boom">💥 BOOM</span>
+                <span class="logo-item font-ramp">ramp ⏵</span>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
