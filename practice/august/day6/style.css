@@ -1,0 +1,20 @@
+body{
+    background-color: #000000;
+}
+.site-header{
+    padding: 18px;
+}
+.container{
+    width: 100%;
+    max-width: 1200px;
+}
+.site-header-layout{
+    display: flex;
+    border: 2px solid red;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.site-link-group,.site-link-group ul{
+    display: flex;
+}

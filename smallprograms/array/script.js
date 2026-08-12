@@ -1,3 +1,5 @@
+const prompt = require('prompt-sync')();
+
 // const drinks = ["Water", "Tea", "Coffee"];
 // drinks[1]="Juice"
 // drinks.push("Milk");
@@ -79,19 +81,21 @@
 // groceryList.pop();
 // console.log(groceryList);
 
-const scores = [78, 43, 91, 66, 85];
-let highestscore=scores[0];
-let lowestscore=scores[0];  
-for(let i=0;i<scores.length;i++){
-   if(scores[i]>highestscore){
-    highestscore=scores[i];
-   }
-     if(scores[i]<lowestscore){
-    lowestscore=scores[i];
-   }
-   if(scores[i]>50){
-    console.log(scores[i]);
-   }
-}
-console.log(highestscore);
+// const scores = [78, 43, 91, 66, 85];
+// let highestscore=scores[0];
+// let lowestscore=scores[0];  
+// for(let i=0;i<scores.length;i++){
+//    if(scores[i]>highestscore){
+//     highestscore=scores[i];
+//    }
+//      if(scores[i]<lowestscore){
+//     lowestscore=scores[i];
+//    }
+//    if(scores[i]>50){
+//     console.log(scores[i]);
+//    }
+// }
+// console.log(highestscore);
 
+const showme=prompt("enter soemthing");
+console.log(showme);
