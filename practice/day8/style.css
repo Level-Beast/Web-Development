@@ -1,0 +1,11 @@
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    flex:   1 0 150PX;
+    min-height: 150px;
+    border: 2px solid red;
+}
