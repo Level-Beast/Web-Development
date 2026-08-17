@@ -1,103 +1,52 @@
 const prompt = require('prompt-sync')();
-// let name="Karan";
 
-// function makeLoud(text) {
-//   return text + "!!!";
-// }
-
-// function addHello(name){
-//  return "Hello " + name
-// }
-// function bossFunction(name){
-//     let text=addHello(name);
-//     let finalword=makeLoud(text);
-//     console.log(finalword);
-// }
-
-// bossFunction(name);
-
-// let startingNumber=5;
-// // Worker 1: Adds 5 to any number
-// function addFive(num) {
-//   return num + 5;
-// }
-
-// // Worker 2: Multiplies any number by 2
-// function doubleNum(num) {
-//   return num * 2;
-// }
-
-// function mathBoss(startingNumber){
-//     let numberAdded=addFive(startingNumber);
-//     let doubleNumber=doubleNum(numberAdded);
-//     return doubleNumber;
-// }
-// let finalresult=mathBoss(startingNumber);
-// console.log(finalresult);
-// Worker 1: ONE job - checks if the player has enough gold
-
-let playerGold=100;
-let itemCost=80;
-
-function hasEnoughGold(playerGold, cost) {
-  return playerGold >= cost; 
+const inventory={
+  iron:10,
+  wood:5,
+  sword:0,
+  shield:0,
+  isPlaying:true
+}
+function userInput(){
+  return prompt("what do u want to craft sword |  shield  | exist");
+}
+function validate(userResponse){
+  if(userResponse==="exist") return exist();
+  if(userResponse==="sword")return sword();
+  if(userResponse==="shield")return shield();
+}
+function sword(){
+  let iron=3;
+  let wood=1;
+  if(inventory.iron>=3 && inventory.wood>=1){
+    inventory.iron-=3;
+    inventory.wood-=1;
+    inventory.sword+=1;
+  }
+  return "sword added ";
+}
+function shield(){
+  let iron=3;
+  let wood=1;
+  if(inventory.iron>=5 && inventory.wood>=2){
+    inventory.iron-=5;
+    inventory.wood-=2;
+    inventory.shield+=1;
+  }
+  return "shield added ";
+}
+function exist(){
+  inventory.isPlaying=false;
+  return "game over";
 }
 
-// Worker 2: ONE job - subtracts the cost from the player's gold
-function deductGold(playerGold, cost) {
-  return playerGold - cost;
+function main(){
+  let userResponse=userInput();
+  let actionResult=validate(userResponse);
+  console.log(actionResult);
+  console.log(inventory)
+  while(isPlaying){
+    main();
+  }
 }
-
-// Worker 3: ONE job - creates a successful receipt message
-function createReceipt(newBalance) {
-  return "Purchase successful! Remaining gold: " + newBalance;
-}
-
-// Worker 4: ONE job - creates a failure message
-function createFailureMessage() {
-  return "Transaction denied: Not enough gold!";
-}
-
-function buyItemBoss(playerGold, itemCost){
-    let enoughBalanceResult=hasEnoughGold(playerGold,itemCost);
-    if(!enoughBalanceResult){
-     return createFailureMessage()   
-    }
-    let leftGold=deductGold(playerGold,itemCost);
-        let finalResult=createReceipt(leftGold);
-        return finalResult;
-};
-let finalResponse=buyItemBoss(playerGold,itemCost);
-console.log(finalResponse);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const students = [
-//     { name: "Alex", marks: 91 },
-//     { name: "Raj", marks: 72 },
-//     { name: "Sara", marks: 88 },
-//     { name: "John", marks: 65 },
-//     { name: "Emma", marks: 99 }
-// ];
-// function pass(){
-//  for(let i=0;i<students.length;i++){
-//     if(students[i].marks>70){
-//         console.log(students[i].name + "  PASS")
-//     }
-//  }
-// };
-// pass();
+main();

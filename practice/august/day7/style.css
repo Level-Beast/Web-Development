@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Remove bullet points from list items */
+ul {
+    list-style: none;
+}
+
+/* Make links inherit the text color of their parent */
+a {
+    color: inherit;
+}
+
+.site-footer{
+    margin-top: 1000px;
+    background-color: #080C16;
+    padding-block: 44px;
+}
+.container{
+    width: 100%;
+    max-width: 1080px;
+    padding-inline: 24px;
+    margin: 0 auto;
+}
+.upperfooter-layout{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo{
+    font-size: 2.4rem;
+    color: #1FE675;
+}
+.leftcontent{
+    display: flex;
+    flex-direction: column;
+    gap: 44px 0px;
+}
+.leftcontent button{
+    padding: 12px 12px;
+    border-radius: 12px;
+}
+.footer-link{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    max-width: 400px;
+    align-items: flex-start;
+}
+.links h3{
+    padding: 14px 0px;
+    color: white;
+}
+.links ul li {
+    margin-bottom: 12px;
+    color: #1FE675;
+}
+.lowerfooter p{
+    margin-top: 44px;
+    color: #692a1c;
+}
+@media(max-width:736px){
+    .upperfooter-layout{
+        flex-direction: column;
+        gap: 40px 0px;
+        align-items: center;
+    }
+    .leftcontent{
+        align-items: center;
+    }
+}
+.clampp{
+    border: 2px solid red;
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+.clampp h1{
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+}
