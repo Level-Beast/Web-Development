@@ -1,52 +1,50 @@
 const prompt = require('prompt-sync')();
 
-const inventory={
-  iron:10,
-  wood:5,
-  sword:0,
-  shield:0,
+const gameState={
+  inventory:{iron:10,wood:5,sword:0,shield:0},
+  Recipe:{
+    sword:{iron:3,wood:1},
+    shield:{iron:5,wood:2}
+  },
   isPlaying:true
 }
-function userInput(){
-  return prompt("what do u want to craft sword |  shield  | exist");
+function cleanInput(){
+  let userResponse=prompt("what do u want to craft sword | shield  | exist");
+  return userResponse?userResponse.trim().toLowerCase():"exist";
 }
-function validate(userResponse){
-  if(userResponse==="exist") return exist();
-  if(userResponse==="sword")return sword();
-  if(userResponse==="shield")return shield();
-}
-function sword(){
-  let iron=3;
-  let wood=1;
-  if(inventory.iron>=3 && inventory.wood>=1){
-    inventory.iron-=3;
-    inventory.wood-=1;
-    inventory.sword+=1;
+function craft(userIteam){
+  let recipe=gameState.Recipe[userIteam];
+  if(!recipe)return `there is no such item to craft`;
+  if(gameState.inventory.iron<recipe.iron){
+    return `❌ Failed: Need ${recipe.iron} Iron, but you only have ${gameState.inventory.iron}.`;
   }
-  return "sword added ";
-}
-function shield(){
-  let iron=3;
-  let wood=1;
-  if(inventory.iron>=5 && inventory.wood>=2){
-    inventory.iron-=5;
-    inventory.wood-=2;
-    inventory.shield+=1;
+  if(gameState.inventory.wood<recipe.wood){
+    return `❌ Failed: Need ${recipe.wood} Wood, but you only have ${gameState.inventory.wood}.`;
   }
-  return "shield added ";
-}
-function exist(){
-  inventory.isPlaying=false;
-  return "game over";
+  gameState.inventory.iron-=recipe.iron;
+  gameState.inventory.wood-=recipe.wood;
+  gameState.inventory[userIteam]+=1;
+
+    return `🔨 Success! You crafted a ${userIteam.toUpperCase()}!`;
+
 }
 
 function main(){
-  let userResponse=userInput();
-  let actionResult=validate(userResponse);
-  console.log(actionResult);
-  console.log(inventory)
-  while(isPlaying){
-    main();
+  console.log(`Intial game inventory ${gameState.inventory}`);
+  while(gameState.isPlaying){
+    let userInput=cleanInput();
+    if(userInput==="exist"){
+      gameState.isPlaying=false;
+      break;
+    }
+    let finalResult=craft(userInput);
+    console.log(finalResult);
+    console.log("Current Inventory:", gameState.inventory);
   }
 }
+
 main();
+
+
+
+console.log(gameState.Recipe.iron);
