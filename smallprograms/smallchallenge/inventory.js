@@ -20,13 +20,11 @@ const itemTypes = {
 function validateItem(item){
     let itemName=itemTypes[item] ? itemTypes[item]:"this item doesn't exist";
     let canBeEquipped=itemTypes.healingHerb === itemName ? "this can't be equiped" : "this can be equiped";  
-    console.log(canBeEquipped);
     return itemName;
 }
 
 function equipItem(itemName){
     let result=validateItem(itemName);
-    
 }
 let itemName="healingHerb";
 equipItem(itemName);

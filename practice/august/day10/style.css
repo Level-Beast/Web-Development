@@ -1,0 +1,76 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.small-container{
+    width: 100%;
+    width: 880px;
+    padding-inline: 18px;
+    margin: 0 auto;
+}
+
+.site-header{
+    background-color: #F6F5F3;
+    padding-block: 22px;
+}
+.site-container{
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-inline: 18px;
+}
+.site-header-layout{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+.nav-link-group{
+    display: flex;
+    gap: 0px 22px;
+}
+.nav-link-group a{text-decoration: none;color: black;font-size: 1.2rem;}
+/* Layout container */
+.hero-section-layout {
+    text-align: center;
+    max-width: 650px; /* Prevents long paragraph lines from stretching too wide */
+    margin-inline: auto; /* Centers the whole container */
+}
+
+/* Heading - Huge and bold */
+.hero-section h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px; /* Tight space right above the subtitle */
+}
+
+/* Subtitle - Slightly smaller and gray */
+.hero-section-layout > p:first-of-type {
+    font-size: 1.2rem;
+    color: #4a4a4a;
+    line-height: 1.5;
+    margin-bottom: 32px; /* Bigger gap to separate text from the form */
+}
+
+/* Input Group - Horizontal form layout */
+.inputgroup {
+    display: flex;
+    justify-content: center;
+    gap: 12px; /* Space between input box and blue button */
+    margin-bottom: 16px; /* Space above the small footer text */
+}
+
+/* Small Disclaimer Text at the bottom */
+.hero-section-layout > p:last-of-type {
+    font-size: 0.85rem;
+    color: #666666;
+    line-height: 1.4;
+}
