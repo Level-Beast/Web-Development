@@ -37,40 +37,112 @@ body {
     gap: 0px 22px;
 }
 .nav-link-group a{text-decoration: none;color: black;font-size: 1.2rem;}
-/* Layout container */
-.hero-section-layout {
-    text-align: center;
-    max-width: 650px; /* Prevents long paragraph lines from stretching too wide */
-    margin-inline: auto; /* Centers the whole container */
+.hero-section{
+    background-color: #F6F5F3;
+    padding-block: 22px;
 }
-
-/* Heading - Huge and bold */
-.hero-section h1 {
+.hero-section-layout{
+    text-align: center;
+}
+.hero-section-layout h1{
     font-size: 3rem;
     font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 12px; /* Tight space right above the subtitle */
+    margin-bottom: 14px;
+}
+.description-hero{
+    font-size: 1.6rem;
+    margin-bottom: 34px;
+}
+.input-mail{
+    padding: 12px 20px;
+    margin-right: 20px;
+    border-radius: 8px;
+    border: none;
+}
+.template-button{
+     padding: 16px 24px;
+     background-color: #16528C;
+     border: none;
+     border-radius: 12px;
+     color: white;
+     margin-bottom: 33px;
+}
+.thinking-tools-section{
+    padding-block: 44px;
 }
 
-/* Subtitle - Slightly smaller and gray */
-.hero-section-layout > p:first-of-type {
-    font-size: 1.2rem;
-    color: #4a4a4a;
-    line-height: 1.5;
-    margin-bottom: 32px; /* Bigger gap to separate text from the form */
+.thinking-tools-section-layout h2{
+    padding-block: 22px;
+    font-size: 2rem;
+    font-weight: 800;
+     text-align: center;
 }
-
-/* Input Group - Horizontal form layout */
-.inputgroup {
+.tools-link-group{
     display: flex;
     justify-content: center;
-    gap: 12px; /* Space between input box and blue button */
-    margin-bottom: 16px; /* Space above the small footer text */
+    gap: 22px;
+}
+.tools-link-group a{
+    border: 2px solid black;
+    padding: 8px 6px;
+    text-decoration: none;
+    color: black;
+}
+.tool-group{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 22px 44px;
+    margin: 44px 0px;
+}
+.tool-box{
+    border: 2px solid rebeccapurple ;
+    padding:18px 22px;
+}
+img{
+    width: 80px;       /* ਚੌੜਾਈ ਸੈੱਟ ਕਰੋ */
+    height: auto;       /* ਫੋਟੋ ਦੀ ਸ਼ਕਲ ਖਰਾਬ ਨਹੀਂ ਹੋਵੇਗੀ */
+    border-radius: 8px;
+    margin-bottom: 12px;
 }
 
-/* Small Disclaimer Text at the bottom */
-.hero-section-layout > p:last-of-type {
-    font-size: 0.85rem;
-    color: #666666;
-    line-height: 1.4;
+.last-section{
+    background-color: #E4EAF1;
+    padding-block: 42px;
+}
+.last-section-layout h2{
+    font-size: 1.8rem;
+}
+.content-group{
+    display: flex;
+    justify-content: space-between;
+    gap: 44px;
+    padding: 20px 0px;
+}
+.content-group p{
+    font-size: 1.2rem;
+}
+.content-group button {
+    width: 100%;
+    max-width: 200px;
+    background-color: #16528C;
+    border: none;
+    border-radius: 12px;
+    color: whitesmoke;
+}
+.site-footer{
+    padding-block: 54px;
+}
+.upperfooter{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 42px;
+}
+.bottom-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.left-box h2,.right-box h2{
+    font-size: 1.4rem;
+    margin-bottom: 24px;
 }
