@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FORGE | Elite Workout</title>
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkZPUkdFIiwKICAic2hvcnRfbmFtZSI6ICJGT1JHRSIsCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMEIwRDEwIiwKICAidGhlbWVfY29sb3IiOiAiIzBCMEQxMCIsCiAgImljb25zIjogW3sgInNyYyI6ICJodHRwczovL2Nkbi1pY29ucy1wbmcuZmxhdGljb24uY29tLzUxMi8yOTY0LzI5NjQ1MTQucG5nIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9wbmciIH1dCn0=">
+    <style>
+        :root {
+            --bg: #0B0D10;
+            --card: #1B1F26;
+            --accent: #C6FF3D; /* Neon Green */
+            --rest: #4DA8FF;
+            --text: #EDEEF0;
+            --text-dim: #8A8F98;
+            --danger: #FF5D5D;
+            --radius: 16px;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            background: var(--bg); color: var(--text); 
+            font-family: -apple-system, system-ui, sans-serif; 
+            margin: 0; padding: 0; overflow-x: hidden;
+        }
+
+        /* --- UI Shell --- */
+        .header { padding: 60px 20px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin: 0; }
+        .header h1 span { color: var(--accent); }
+
+        .container { padding: 0 20px 120px; max-width: 500px; margin: 0 auto; }
+
+        /* --- Stats Row --- */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
+        .stat-card { background: var(--card); padding: 15px; border-radius: var(--radius); border-left: 3px solid var(--accent); }
+        .stat-card small { color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-card div { font-size: 20px; font-weight: 800; margin-top: 5px; }
+
+        /* --- Program Cards --- */
+        .section-label { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 12px; display: block; }
+        .program-card { 
+            background: var(--card); border-radius: var(--radius); padding: 20px; margin-bottom: 15px;
+            border: 1px solid #2A2F38; position: relative;
+        }
+        .program-card.morning { border-left: 4px solid #FFD166; }
+        .program-card.evening { border-left: 4px solid #B79CFF; }
+
+        .prog-meta { display: flex; justify-content: space-between; align-items: flex-start; }
+        .prog-info h3 { margin: 0; font-size: 20px; }
+        .prog-info p { margin: 5px 0 0; color: var(--text-dim); font-size: 13px; }
+        
+        .btn-play { 
+            background: var(--accent); color: #000; border: none; border-radius: 50px; 
+            padding: 12px 24px; font-weight: 800; margin-top: 15px; width: 100%;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-manage { position: absolute; top: 20px; right: 20px; color: var(--text-dim); font-size: 12px; background: none; border: 1px solid #333; border-radius: 6px; padding: 4px 8px; }
+
+        /* --- Workout Runner (Full Screen) --- */
+        #runner {
+            position: fixed; inset: 0; background: var(--bg); z-index: 1000;
+            display: none; flex-direction: column; padding: 60px 30px; text-align: center;
+        }
+        #run-phase { text-transform: uppercase; font-weight: 800; letter-spacing: 4px; color: var(--accent); font-size: 14px; }
+        #run-name { font-size: 36px; font-weight: 800; margin: 20px 0; }
+        #run-timer { font-size: 100px; font-weight: 900; font-variant-numeric: tabular-nums; margin: 20px 0; }
+        #run-next { color: var(--text-dim); font-size: 16px; margin-top: 40px; }
+
+        .run-controls { margin-top: auto; display: flex; gap: 15px; }
+        .run-controls button { flex: 1; padding: 20px; border-radius: 20px; border: none; font-weight: 800; font-size: 16px; }
+        .btn-pause { background: #222; color: white; }
+        .btn-skip { background: var(--accent); color: black; }
+
+        /* --- Modals --- */
+        .modal { 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; 
+            display: none; padding: 40px 20px; overflow-y: auto;
+        }
+        input, select, textarea { 
+            width: 100%; background: #222; border: 1px solid #333; color: white; 
+            padding: 15px; border-radius: 12px; margin-bottom: 15px; font-size: 16px;
+        }
+        .btn-save { background: var(--accent); color: black; width: 100%; padding: 15px; border-radius: 12px; font-weight: 800; border: none; }
+        .btn-cancel { background: none; color: var(--text-dim); width: 100%; padding: 10px; border: none; margin-top: 10px; }
+
+        /* --- Nav --- */
+        .navbar { 
+            position: fixed; bottom: 0; width: 100%; background: rgba(11,13,16,0.9); 
+            backdrop-filter: blur(10px); padding: 20px; display: flex; justify-content: space-around;
+            border-top: 1px solid #222;
+        }
+        .nav-item { color: var(--text-dim); font-size: 24px; text-decoration: none; }
+        .nav-item.active { color: var(--accent); }
+
+        .short-toggle { 
+            display: flex; align-items: center; gap: 10px; background: #222; 
+            padding: 8px 15px; border-radius: 50px; width: fit-content; margin-top: 10px;
+        }
+        
+        .prog-increase-badge { background: var(--accent); color: black; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 800; margin-left: 5px; }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <div class="header">
+            <h1>FOR<span>GE</span></h1>
+            <div id="streak-top">🔥 0 Days</div>
+        </div>
+
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <small>Overall Rank</small>
+                    <div id="overall-rank">Recruit</div>
+                </div>
+                <div class="stat-card">
+                    <small>Total Sessions</small>
+                    <div id="total-logs">0</div>
+                </div>
+            </div>
+
+            <span class="section-label">Your Programs</span>
+            <div id="program-list">
+                <!-- Programs will appear here -->
+            </div>
+
+            <button class="btn-play" style="background: #222; color: #fff; margin-top: 20px;" onclick="openCreator()">
+                + Create Custom Program
+            </button>
+        </div>
+    </div>
+
+    <!-- WORKOUT RUNNER OVERLAY -->
+    <div id="runner">
+        <div id="run-phase">GET READY</div>
+        <div id="run-name">Warm Up</div>
+        <div id="run-timer">00:10</div>
+        <div id="run-next">Up Next: Pushups</div>
+        
+        <div class="run-controls">
+            <button class="btn-pause" onclick="togglePause()" id="pause-btn">PAUSE</button>
+            <button class="btn-skip" onclick="skipExercise()">SKIP</button>
+            <button class="btn-pause" style="background:var(--danger)" onclick="quitRunner()">QUIT</button>
+        </div>
+    </div>
+
+    <!-- PROGRAM CREATOR MODAL -->
+    <div id="modal" class="modal">
+        <h2 id="modal-title">New Program</h2>
+        <input type="text" id="prog-name" placeholder="Program Name (e.g. Morning Sprints)">
+        <select id="prog-time">
+            <option value="morning">Morning Routine</option>
+            <option value="evening">Evening Routine</option>
+            <option value="any">General/Anytime</option>
+        </select>
+        
+        <div id="exercise-builder">
+            <span class="section-label">Exercises</span>
+            <!-- Exercise items added here -->
+        </div>
+        
+        <button class="btn-save" style="background: #333; margin-bottom: 10px;" onclick="addExerciseField()">+ Add Exercise</button>
+        <button class="btn-save" onclick="saveProgram()">SAVE PROGRAM</button>
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+    </div>
+
+    <script>
+        /* --- STATE MANAGEMENT --- */
+        let programs = JSON.parse(localStorage.getItem('forge_programs')) || [];
+        let logs = JSON.parse(localStorage.getItem('forge_logs')) || [];
+        let currentProgram = null;
+        let exerciseIndex = 0;
+        let timer = null;
+        let timeLeft = 0;
+        let isPaused = false;
+        let isRestPhase = false;
+        let activeProgramExercises = [];
+
+        /* --- AUDIO ENGINE --- */
+        function speak(text) {
+            const msg = new SpeechSynthesisUtterance(text);
+            msg.rate = 1;
+            window.speechSynthesis.speak(msg);
+        }
+
+        function beep(freq = 800) {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.value = freq;
+            osc.start();
+            setTimeout(() => osc.stop(), 200);
+        }
+
+        /* --- UI RENDERERS --- */
+        function renderPrograms() {
+            const list = document.getElementById('program-list');
+            list.innerHTML = '';
+            
+            if (programs.length === 0) {
+                list.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-dim);">No programs created yet.</div>`;
+                return;
+            }
+
+            programs.forEach((prog, index) => {
+                const progLogs = logs.filter(l => l.progId === prog.id);
+                const streak = calculateStreak(progLogs);
+                const lastLog = progLogs[progLogs.length - 1];
+                const completion = lastLog ? "Last: " + lastLog.date : "Never started";
+
+                const div = document.createElement('div');
+                div.className = `program-card ${prog.time}`;
+                div.innerHTML = `
+                    <button class="btn-manage" onclick="deleteProgram(${index})">Delete</button>
+                    <div class="prog-meta">
+                        <div class="prog-info">
+                            <h3>${prog.name}</h3>
+                            <p>${prog.exercises.length} Exercises • 🔥 ${streak} Day Streak</p>
+                            <p style="font-size:11px; color:var(--accent)">${completion}</p>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-play" onclick="startWorkout(${index}, false)">START FULL</button>
+                        <button class="btn-play" style="background:#222; color:#fff; width:120px;" onclick="startWorkout(${index}, true)">SHORT</button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+            updateOverallStats();
+        }
+
+        function updateOverallStats() {
+            document.getElementById('total-logs').innerText = logs.length;
+            document.getElementById('streak-top').innerText = `🔥 ${calculateStreak(logs)} Days`;
+            const rank = logs.length > 50 ? 'Elite' : logs.length > 20 ? 'Warrior' : 'Recruit';
+            document.getElementById('overall-rank').innerText = rank;
+        }
+
+        /* --- PROGRAM LOGIC --- */
+        function openCreator() {
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('exercise-builder').innerHTML = '';
+            addExerciseField();
+        }
+
+        function addExerciseField(name='', type='timer', val=30) {
+            const container = document.getElementById('exercise-builder');
+            const div = document.createElement('div');
+            div.className = 'ex-input-group';
+            div.innerHTML = `
+                <div style="display:flex; gap:5px;">
+                    <input type="text" placeholder="Exercise Name" class="ex-name" value="${name}" style="flex:2">
+                    <select class="ex-type" style="flex:1">
+                        <option value="timer" ${type==='timer'?'selected':''}>Secs</option>
+                        <option value="reps" ${type==='reps'?'selected':''}>Reps</option>
+                        <option value="log" ${type==='log'?'selected':''}>Log</option>
+                    </select>
+                    <input type="number" placeholder="Val" class="ex-val" value="${val}" style="flex:1">
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function saveProgram() {
+            const name = document.getElementById('prog-name').value;
+            const time = document.getElementById('prog-time').value;
+            const exGroups = document.querySelectorAll('.ex-input-group');
+            let exs = [];
+            
+            exGroups.forEach(g => {
+                exs.push({
+                    name: g.querySelector('.ex-name').value,
+                    type: g.querySelector('.ex-type').value,
+                    val: g.querySelector('.ex-val').value,
+                    rest: 20
+                });
+            });
+
+            if(!name) return alert("Give it a name!");
+            
+            programs.push({ id: Date.now(), name, time, exercises: exs });
+            localStorage.setItem('forge_programs', JSON.stringify(programs));
+            closeModal();
+            renderPrograms();
+        }
+
+        function deleteProgram(index) {
+            if(confirm("Delete this program and its history?")) {
+                programs.splice(index, 1);
+                localStorage.setItem('forge_programs', JSON.stringify(programs));
+                renderPrograms();
+            }
+        }
+
+        /* --- WORKOUT ENGINE (THE HEART) --- */
+        function startWorkout(index, isShort) {
+            currentProgram = programs[index];
+            activeProgramExercises = isShort ? currentProgram.exercises.slice(0, 3) : currentProgram.exercises;
+            exerciseIndex = 0;
+            isRestPhase = false;
+            
+            document.getElementById('runner').style.display = 'flex';
+            runExercise();
+        }
+
+        function runExercise() {
+            if(exerciseIndex >= activeProgramExercises.length) {
+                completeWorkout();
+                return;
+            }
+
+            const ex = activeProgramExercises[exerciseIndex];
+            document.getElementById('run-phase').innerText = isRestPhase ? "REST" : "WORK";
+            document.getElementById('run-phase').style.color = isRestPhase ? "var(--rest)" : "var(--accent)";
+            document.getElementById('run-name').innerText = isRestPhase ? "Recovery" : ex.name;
+            
+            let nextEx = activeProgramExercises[exerciseIndex + 1];
+            document.getElementById('run-next').innerText = nextEx ? `Next: ${nextEx.name}` : "Last Exercise!";
+
+            if(isRestPhase) {
+                timeLeft = ex.rest || 20;
+                speak(`Rest for 20 seconds. Next up is ${ex.name}`);
+            } else {
+                if(ex.type === 'timer') {
+                    timeLeft = parseInt(ex.val);
+                    speak(`Go! ${ex.name}`);
+                } else {
+                    // It's a Reps/Log exercise - wait for user to hit skip
+                    document.getElementById('run-timer').innerText = "GO";
+                    speak(`${ex.name}. Do ${ex.val} reps and tap next.`);
+                    return; 
+                }
+            }
+
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timer);
+            updateTimerDisplay();
+            
+            timer = setInterval(() => {
+                if(isPaused) return;
+                timeLeft--;
+                updateTimerDisplay();
+
+                // Logic: 15s warning
+                if(timeLeft === 15 && !isRestPhase) speak("15 seconds remaining");
+                if(timeLeft <= 3 && timeLeft > 0) beep(400);
+
+                if(timeLeft <= 0) {
+                    clearInterval(timer);
+                    beep(1200);
+                    handleTransition();
+                }
+            }, 1000);
+        }
+
+        function handleTransition() {
+            if(!isRestPhase) {
+                isRestPhase = true;
+                runExercise();
+            } else {
+                isRestPhase = false;
+                exerciseIndex++;
+                runExercise();
+            }
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timeLeft / 60);
+            const s = timeLeft % 60;
+            document.getElementById('run-timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+        }
+
+        function togglePause() {
+            isPaused = !isPaused;
+            document.getElementById('pause-btn').innerText = isPaused ? "RESUME" : "PAUSE";
+        }
+
+        function skipExercise() {
+            clearInterval(timer);
+            handleTransition();
+        }
+
+        function completeWorkout() {
+            const log = {
+                progId: currentProgram.id,
+                date: new Date().toLocaleDateString(),
+                timestamp: Date.now()
+            };
+            logs.push(log);
+            localStorage.setItem('forge_logs', JSON.stringify(logs));
+            
+            speak("Workout complete. You are getting stronger.");
+            quitRunner();
+            renderPrograms();
+        }
+
+        function quitRunner() {
+            clearInterval(timer);
+            document.getElementById('runner').style.display = 'none';
+        }
+
+        /* --- UTILS --- */
+        function calculateStreak(targetLogs) {
+            if (targetLogs.length === 0) return 0;
+            // Simple unique days count for this version
+            const days = [...new Set(targetLogs.map(l => l.date))];
+            return days.length;
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Initialize
+        renderPrograms();
+    </script>
+</body>
+</html>
