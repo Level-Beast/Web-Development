@@ -1,0 +1,69 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+body{
+ height: 100vh;  
+ background-color: hsl(0, 0%, 8%);
+}
+.container{
+    width: 100%;
+    max-width:375px;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 22px 33px;
+    background-color: hsl(0, 0%, 8%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card{
+    border-radius: 8px;
+    padding: 18px 22px;
+    display: flex;
+    background-color:  hsl(0, 0%, 12%);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.img-wrapper {
+  width: 88px;          /* Typical avatar size for this challenge */
+  height: 88px;
+  margin: 0 auto;
+  margin-bottom: 22px;
+}
+
+.img-wrapper img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;   /* Makes it a perfect circle */
+  object-fit: cover;    
+}
+.card h1{
+    font-size: 1.6rem;
+    color: whitesmoke;
+    margin-bottom: 12px;
+}
+.card p{
+    color: hsl(75, 94%, 57%);
+    font-size: 1.2rem;
+}
+.card .description{
+    color: whitesmoke;
+    padding-block: 22px;
+    font-size: 1rem;
+}
+.socials{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px 0px;
+}
+button{
+    color:  hsl(0, 0%, 100%);
+    padding: 14px 18px;
+    border: none;
+    border-radius: 6px;
+    background-color: hsl(0, 0%, 20%) ;
+}

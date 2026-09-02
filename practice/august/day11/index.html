@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4-7-8 Sleep Reset Timer</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #c9d1d9;
+            --inhale-color: #2ea44f;
+            --hold-color: #dbab09;
+            --exhale-color: #f85149;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .timer-card {
+            background-color: var(--card-bg);
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            width: 320px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        h2 { margin-top: 0; color: #fff; font-size: 24px; }
+        
+        .time-display {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+            background: #21262d;
+        }
+
+        .status-badge.inhale { background-color: var(--inhale-color); color: white; }
+        .status-badge.hold { background-color: var(--hold-color); color: black; }
+        .status-badge.exhale { background-color: var(--exhale-color); color: white; }
+
+        .btn {
+            background-color: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background-color: #30363d; }
+        .btn.active { background-color: #cc241d; color: white; border-color: #a81fd1; }
+    </style>
+</head>
+<body>
+
+<div class="timer-card">
+    <h2>4-7-8 Sleep Reset</h2>
+    <div class="status-badge" id="statusBadge">Ready</div>
+    <div class="time-display" id="timeDisplay">05:00</div>
+    <button class="btn" id="startBtn" onclick="toggleTimer()">Start Session</button>
+</div>
+
+<script>
+    let audioCtx = null;
+    let timerInterval = null;
+    let phaseTimeout = null;
+    
+    let isRunning = false;
+    let totalSeconds = 300; // 5 Minutes
+    let currentPhase = ''; // inhale, hold, exhale
+    let phaseTimeLeft = 0;
+
+    const statusBadge = document.getElementById('statusBadge');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const startBtn = document.getElementById('startBtn');
+
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    }
+
+    // --- EXACT AUDIO SYNTH ENGINE ---
+    function playInhale() {
+        initAudio();
+        let osc = audioCtx.createOscillator();
+        let gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(330, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 4.0);
+        gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.5);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime + 3.8);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 4.0);
+        osc.start(); osc.stop(audioCtx.currentTime + 4.0);
+    }
+
+    function playHold() {
+        initAudio();
+        let osc = audioCtx.createOscillator();
+        let gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.3);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime + 6.7);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 7.0);
+        osc.start(); osc.stop(audioCtx.currentTime + 7.0);
+    }
+
+    function playExhale() {
+        initAudio();
+        let osc = audioCtx.createOscillator();
+        let filter = audioCtx.createBiquadFilter();
+        let gain = audioCtx.createGain();
+        osc.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(90, audioCtx.currentTime);
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(400, audioCtx.currentTime);
+        filter.frequency.linearRampToValueAtTime(150, audioCtx.currentTime + 8.0);
+        gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.25, audioCtx.currentTime + 0.5);
+        gain.gain.setValueAtTime(0.25, audioCtx.currentTime + 7.2);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 8.0);
+        osc.start(); osc.stop(audioCtx.currentTime + 8.0);
+    }
+
+    // --- LOOP TIMER ENGINE ---
+    function runBreathingLoop() {
+        if (!isRunning) return;
+
+        // 1. INHALE PHASE (4 Seconds)
+        currentPhase = 'inhale';
+        updateUI('Inhale', 'inhale');
+        playInhale();
+        
+        phaseTimeout = setTimeout(() => {
+            if (!isRunning) return;
+            
+            // 2. HOLD PHASE (7 Seconds)
+            currentPhase = 'hold';
+            updateUI('Hold', 'hold');
+            playHold();
+            
+            phaseTimeout = setTimeout(() => {
+                if (!isRunning) return;
+                
+                // 3. EXHALE PHASE (8 Seconds)
+                currentPhase = 'exhale';
+                updateUI('Exhale', 'exhale');
+                playExhale();
+                
+                phaseTimeout = setTimeout(() => {
+                    if (isRunning && totalSeconds > 0) {
+                        runBreathingLoop(); // Loop back to start
+                    }
+                }, 8000);
+            }, 7000);
+        }, 4000);
+    }
+
+    function updateUI(text, className) {
+        statusBadge.innerText = text;
+        statusBadge.className = 'status-badge ' + className;
+    }
+
+    function updateClockDisplay() {
+        let minutes = Math.floor(totalSeconds / 60);
+        let seconds = totalSeconds % 60;
+        timeDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function toggleTimer() {
+        if (isRunning) {
+            // STOP
+            isRunning = false;
+            clearInterval(timerInterval);
+            clearTimeout(phaseTimeout);
+            updateUI('Ready', '');
+            startBtn.innerText = 'Start Session';
+            startBtn.classList.remove('active');
+            totalSeconds = 300;
+            updateClockDisplay();
+        } else {
+            // START
+            initAudio();
+            isRunning = true;
+            startBtn.innerText = 'Stop';
+            startBtn.classList.add('active');
+            
+            // Main countdown clock
+            timerInterval = setInterval(() => {
+                if (totalSeconds > 0) {
+                    totalSeconds--;
+                    updateClockDisplay();
+                } else {
+                    toggleTimer(); // End session safely
+                }
+            }, 1000);
+
+            runBreathingLoop();
+        }
+    }
+</script>
+</body>
+</html>
