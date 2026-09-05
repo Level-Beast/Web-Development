@@ -22,7 +22,13 @@ function proccessingUserChoice(choice){
         return;
     }
     let ticketData=tickets[choice];
-    addIteam(ticketData);
+    if(ticketData){
+        addIteam(ticketData);
+    }
+    else{
+        console.log("invalid data ");
+        
+    }
 }
 
 function addIteam(userData){
@@ -31,11 +37,10 @@ function addIteam(userData){
     console.log(`ur iteam is added ${userData.ticketName} successfully`);
 }
 function summery(){
-    console.log(`ur total is ${userTotal.total}`);
-    for(let i=0;i<userTotal.tickets.length;i++){
-        console.log(userTotal[i].ticketName);
+    for(let ticket of userTotal.tickets){
+        console.log(`Number of tickets u have bought are ${ticket.ticketName}`);
     }
-    console.log(`and u have bought all these tickets ${userTotal.tickets}`);
+    console.log(`ur total is ${userTotal.total}`);
 }
 function main(){
     while(userTotal.isBuying){
