@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Slow Breath</title>
+<meta name="theme-color" content="#0b0f14">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,560&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f14;
+    --panel:#121922;
+    --elevated:#1a2330;
+    --line:rgba(255,255,255,.08);
+    --text:#eef1f4;
+    --dim:#8592a0;
+    --dimmer:#4d5761;
+    --inhale:#6fd1c5;
+    --hold:#d8a756;
+    --exhale:#a99bdc;
+    --danger:#d97a6f;
+    --radius:22px;
+    --safe-t:env(safe-area-inset-top,0px);
+    --safe-b:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    overscroll-behavior:none; user-select:none;
+    padding-top:var(--safe-t); padding-bottom:var(--safe-b);
+    display:flex; flex-direction:column;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces',serif; font-weight:450; letter-spacing:.2px;}
+  button{font-family:inherit; color:inherit; border:none; background:none; cursor:pointer;}
+  input,select{font-family:inherit; color:inherit;}
+  .view{display:none; flex:1; min-height:0; flex-direction:column;}
+  .view.active{display:flex;}
+
+  /* ---------- HOME ---------- */
+  #view-home{padding:28px 22px 12px;}
+  .home-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:22px;}
+  .home-head h1{font-size:26px; margin:0;}
+  .home-head span{color:var(--dim); font-size:13px;}
+  .orb-preview{width:92px; height:92px; margin:0 auto 26px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #86e2d6, var(--inhale) 60%, #3f958a 100%);
+    box-shadow:0 0 40px -6px rgba(111,209,197,.45);
+    animation:idlepulse 6s ease-in-out infinite;}
+  @keyframes idlepulse{0%,100%{transform:scale(.94)} 50%{transform:scale(1.05)}}
+  .section-label{font-size:12px; color:var(--dim); margin:22px 0 10px; letter-spacing:.3px;}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px 16px; margin-bottom:10px; display:flex; align-items:center; gap:12px;}
+  .card .info{flex:1; min-width:0;}
+  .card .name{font-family:'Fraunces',serif; font-size:18px; margin:0 0 3px;}
+  .card .sub{font-size:12.5px; color:var(--dim); margin:0;}
+  .card .rounds-chip{font-size:12px; color:var(--dim); background:var(--elevated); border-radius:20px; padding:5px 10px; white-space:nowrap;}
+  .card .edit-btn{color:var(--dimmer); font-size:18px; padding:6px;}
+  .card.boredom .name{color:var(--text);}
+  .card.boredom{border-color:rgba(255,255,255,.05);}
+  .new-pattern{display:flex; align-items:center; gap:10px; padding:14px 16px; color:var(--dim); font-size:14.5px; border:1px dashed var(--line); border-radius:var(--radius); margin-bottom:26px;}
+  .bottom-nav{display:flex; border-top:1px solid var(--line); padding:10px 10px calc(10px + var(--safe-b));}
+  .bottom-nav button{flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:11px; color:var(--dim); padding:6px;}
+  .bottom-nav button.on{color:var(--text);}
+  .nav-ico{font-size:19px;}
+
+  /* ---------- SESSION ---------- */
+  #view-session{align-items:center; justify-content:space-between; padding:34px 20px calc(28px + var(--safe-b)); background:var(--bg);}
+  .sess-top{width:100%; display:flex; justify-content:space-between; align-items:flex-start;}
+  .sess-top .pname{color:var(--dim); font-size:13px;}
+  .sess-top .round{color:var(--dimmer); font-size:13px;}
+  .orb-wrap{flex:1; display:flex; align-items:center; justify-content:center; width:100%;}
+  .orb{border-radius:50%; width:150px; height:150px; transition-property:transform, box-shadow, background; transition-timing-function:cubic-bezier(.45,0,.4,1);}
+  .phase-word{font-size:15px; text-transform:none; letter-spacing:.2px; color:var(--dim); margin-top:26px; height:20px;}
+  .sess-controls{display:flex; gap:14px; width:100%;}
+  .sess-controls button{flex:1; padding:15px; border-radius:16px; background:var(--elevated); font-size:14.5px;}
+  .sess-controls .stop{background:transparent; border:1px solid var(--line); color:var(--dim);}
+
+  /* ---------- BOREDOM SCREEN ---------- */
+  #view-boredom{background:#000; align-items:center; justify-content:center; text-align:center; padding:40px;}
+  #view-boredom .quote{color:#2b2b2b; font-size:15px; line-height:1.7; max-width:280px; font-family:'Fraunces',serif; font-weight:300;}
+  .hold-ring{position:fixed; bottom:calc(26px + var(--safe-b)); left:50%; transform:translateX(-50%); width:46px; height:46px; border-radius:50%;
+    border:2px solid #1c1c1c;}
+  .hold-ring svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .hold-ring circle{fill:none; stroke:#3a3a3a; stroke-width:3; stroke-dasharray:126; stroke-dashoffset:126; transition:stroke-dashoffset linear;}
+
+  /* ---------- GENERIC SHEET / OVERLAY ---------- */
+  #view-config, #view-builder, #view-stats, #view-settings{padding:20px 20px calc(18px + var(--safe-b));}
+  .topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;}
+  .topbar h2{font-size:19px; margin:0;}
+  .back{color:var(--dim); font-size:14px; padding:6px 4px 6px 0;}
+  .row{display:flex; align-items:center; justify-content:space-between; padding:14px 0; border-bottom:1px solid var(--line);}
+  .row:last-child{border-bottom:none;}
+  .row .lbl{font-size:14.5px;}
+  .row .lbl small{display:block; color:var(--dim); font-size:12px; margin-top:2px;}
+  .stepper{display:flex; align-items:center; gap:14px;}
+  .stepper button{width:30px; height:30px; border-radius:50%; background:var(--elevated); font-size:16px; line-height:1;}
+  .stepper .val{min-width:26px; text-align:center; font-size:15px;}
+  .phase-row{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:12px 14px; margin-bottom:8px;}
+  .phase-row .pr-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
+  .dot{width:9px; height:9px; border-radius:50%; display:inline-block; margin-right:8px;}
+  select.mini{background:var(--elevated); border:1px solid var(--line); border-radius:10px; padding:6px 8px; font-size:13px;}
+  input[type=text]{background:var(--elevated); border:1px solid var(--line); border-radius:10px; padding:9px 11px; font-size:14px; width:100%;}
+  input[type=range]{width:100%; accent-color:var(--inhale);}
+  .primary-btn{width:100%; padding:15px; border-radius:16px; background:var(--inhale); color:#06110f; font-weight:600; font-size:15px; margin-top:16px;}
+  .ghost-btn{width:100%; padding:13px; border-radius:16px; border:1px solid var(--line); color:var(--dim); font-size:14px; margin-top:10px;}
+  .danger-btn{color:var(--danger);}
+  .icon-btn{color:var(--dimmer); font-size:16px; padding:4px 8px;}
+  .add-phase{display:flex; gap:8px; margin:6px 0 4px;}
+  .add-phase button{flex:1; padding:10px; border-radius:12px; border:1px dashed var(--line); font-size:12.5px; color:var(--dim);}
+
+  /* ---------- STATS ---------- */
+  .stat-cards{display:flex; gap:10px; margin-bottom:22px;}
+  .stat-cards .sc{flex:1; background:var(--panel); border-radius:16px; padding:14px 10px; text-align:center;}
+  .stat-cards .sc b{display:block; font-family:'Fraunces',serif; font-size:22px;}
+  .stat-cards .sc span{font-size:11px; color:var(--dim);}
+  .grid-wrap{overflow-x:auto; padding-bottom:6px;}
+  .grid-cols{display:grid; grid-auto-flow:column; grid-template-rows:repeat(7,11px); gap:3px;}
+  .cell{width:11px; height:11px; border-radius:3px; background:var(--elevated);}
+  .legend{display:flex; align-items:center; gap:5px; margin-top:12px; color:var(--dim); font-size:11px;}
+  .legend .cell{width:9px; height:9px;}
+
+  .toast{position:fixed; left:50%; bottom:calc(90px + var(--safe-b)); transform:translateX(-50%);
+    background:var(--elevated); border:1px solid var(--line); padding:10px 18px; border-radius:30px; font-size:13px; opacity:0; pointer-events:none; transition:opacity .25s;}
+  .toast.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<!-- ================= HOME ================= -->
+<div class="view active" id="view-home">
+  <div style="flex:1; overflow-y:auto;">
+    <div class="home-head"><h1>Slow Breath</h1><span id="today-sub">—</span></div>
+    <div class="orb-preview"></div>
+
+    <div class="section-label">Breathing patterns</div>
+    <div id="pattern-list"></div>
+    <button class="new-pattern" id="btn-new-pattern">+ &nbsp; New custom pattern</button>
+
+    <div class="section-label">Presence</div>
+    <div class="card boredom" id="card-boredom">
+      <div class="info">
+        <p class="name">Boredom</p>
+        <p class="sub" id="boredom-sub">10 min · black screen, no clock</p>
+      </div>
+      <button class="edit-btn" id="btn-boredom-edit">⚙</button>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="on" data-nav="home"><span class="nav-ico">◎</span>Practice</button>
+    <button data-nav="stats"><span class="nav-ico">▦</span>Grid</button>
+    <button data-nav="settings"><span class="nav-ico">⚙</span>Settings</button>
+  </div>
+</div>
+
+<!-- ================= PATTERN CONFIG (rounds + start) ================= -->
+<div class="view" id="view-config">
+  <div class="topbar"><button class="back" data-back="home">← Back</button><h2 id="cfg-title">Pattern</h2><button class="icon-btn" id="cfg-edit">Edit</button></div>
+  <p style="color:var(--dim); font-size:13.5px; margin-top:-6px;" id="cfg-breakdown"></p>
+  <div class="row">
+    <div class="lbl">Rounds<small>One round = one full cycle</small></div>
+    <div class="stepper"><button data-step="-1">–</button><span class="val" id="cfg-rounds">6</span><button data-step="1">+</button></div>
+  </div>
+  <div class="row">
+    <div class="lbl">Gap between rounds<small>Silent pause before the next cycle</small></div>
+    <div class="stepper"><button data-step="-1" data-target="gap">–</button><span class="val" id="cfg-gap">0</span><button data-step="1" data-target="gap">+</button></div>
+  </div>
+  <div class="row">
+    <div class="lbl">Show round counter</div>
+    <label class="stepper"><input type="checkbox" id="cfg-showcount"></label>
+  </div>
+  <button class="primary-btn" id="cfg-start">Begin</button>
+</div>
+
+<!-- ================= SESSION (breathing) ================= -->
+<div class="view" id="view-session">
+  <div class="sess-top"><span class="pname" id="sess-pname">4-7-8</span><span class="round" id="sess-round">1 / 6</span></div>
+  <div class="orb-wrap"><div class="orb" id="sess-orb"></div></div>
+  <div class="phase-word" id="sess-phase"></div>
+  <div class="sess-controls">
+    <button class="stop" id="sess-stop">End</button>
+    <button id="sess-pause">Pause</button>
+  </div>
+</div>
+
+<!-- ================= BOREDOM SCREEN ================= -->
+<div class="view" id="view-boredom">
+  <p class="quote" id="bore-quote">You are in boredom.<br>Don't look up.<br>Stay present.</p>
+  <div class="hold-ring" id="bore-hold"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="20"/></svg></div>
+</div>
+
+<!-- ================= BUILDER ================= -->
+<div class="view" id="view-builder">
+  <div class="topbar"><button class="back" data-back="home">← Back</button><h2>Build pattern</h2><span></span></div>
+  <input type="text" id="b-name" placeholder="Pattern name" style="margin-bottom:16px;">
+  <div id="b-phases"></div>
+  <div class="add-phase">
+    <button data-add="inhale">+ Breathe in</button>
+    <button data-add="hold">+ Hold</button>
+    <button data-add="exhale">+ Let go</button>
+  </div>
+  <button class="primary-btn" id="b-save">Save pattern</button>
+  <button class="ghost-btn danger-btn" id="b-delete" style="display:none;">Delete pattern</button>
+</div>
+
+<!-- ================= STATS / GRID ================= -->
+<div class="view" id="view-stats">
+  <div class="topbar"><button class="back" data-back="home">← Back</button><h2>Consistency</h2><span></span></div>
+  <div class="stat-cards">
+    <div class="sc"><b id="st-streak">0</b><span>day streak</span></div>
+    <div class="sc"><b id="st-minutes">0</b><span>minutes total</span></div>
+    <div class="sc"><b id="st-sessions">0</b><span>sessions</span></div>
+  </div>
+  <div class="grid-wrap"><div class="grid-cols" id="grid"></div></div>
+  <div class="legend">less <span class="cell" style="background:var(--elevated)"></span><span class="cell" style="background:#2c6b62"></span><span class="cell" style="background:#3f958a"></span><span class="cell" style="background:#6fd1c5"></span> more</div>
+</div>
+
+<!-- ================= SETTINGS ================= -->
+<div class="view" id="view-settings">
+  <div class="topbar"><button class="back" data-back="home">← Back</button><h2>Settings</h2><span></span></div>
+  <div class="row" style="display:block;">
+    <div class="lbl" style="margin-bottom:8px;">Volume</div>
+    <input type="range" id="set-volume" min="0" max="100" value="70">
+  </div>
+  <div class="row">
+    <div class="lbl">Test sounds</div>
+    <div class="stepper">
+      <button class="icon-btn" id="test-inhale" style="color:var(--inhale)">In</button>
+      <button class="icon-btn" id="test-hold" style="color:var(--hold)">Hold</button>
+      <button class="icon-btn" id="test-exhale" style="color:var(--exhale)">Out</button>
+      <button class="icon-btn" id="test-bore" style="color:var(--dim)">End</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="lbl">Boredom timer length<small>Minutes, adjustable anytime</small></div>
+    <div class="stepper"><button data-borestep="-1">–</button><span class="val" id="set-bore-min">10</span><button data-borestep="1">+</button></div>
+  </div>
+  <button class="ghost-btn danger-btn" id="reset-stats">Reset consistency data</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================= STORAGE ============================= */
+const LS_PATTERNS="sb_patterns", LS_SETTINGS="sb_settings", LS_SESSIONS="sb_sessions", LS_BOREDOM="sb_boredom";
+
+const DEFAULT_PATTERNS=[
+  {id:"p478", name:"4-7-8", builtin:true, rounds:6, gap:1, showCount:true,
+   phases:[{type:"inhale",label:"Breathe in",dur:4},{type:"hold",label:"Hold",dur:7},{type:"exhale",label:"Let go",dur:8}]},
+  {id:"pbox3", name:"Box 4·4·4", builtin:true, rounds:8, gap:0, showCount:true,
+   phases:[{type:"inhale",label:"Breathe in",dur:4},{type:"hold",label:"Hold",dur:4},{type:"exhale",label:"Let go",dur:4}]},
+  {id:"pbox4", name:"Box 4·4·4·4", builtin:true, rounds:8, gap:0, showCount:true,
+   phases:[{type:"inhale",label:"Breathe in",dur:4},{type:"hold",label:"Hold",dur:4},{type:"exhale",label:"Let go",dur:4},{type:"hold",label:"Hold empty",dur:4}]}
+];
+
+function load(key, fallback){ try{ const v=JSON.parse(localStorage.getItem(key)); return v==null?fallback:v; }catch(e){ return fallback; } }
+function save(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
+
+let patterns = load(LS_PATTERNS, null) || DEFAULT_PATTERNS.map(p=>({...p}));
+let settings = Object.assign({volume:70}, load(LS_SETTINGS, {}));
+let sessions = load(LS_SESSIONS, []); // [{date:"YYYY-MM-DD", minutes, type}]
+let boredomCfg = Object.assign({minutes:10}, load(LS_BOREDOM, {}));
+
+function persistPatterns(){ save(LS_PATTERNS, patterns); }
+function persistSettings(){ save(LS_SETTINGS, settings); }
+function persistSessions(){ save(LS_SESSIONS, sessions); }
+function persistBoredom(){ save(LS_BOREDOM, boredomCfg); }
+
+/* ============================= AUDIO ============================= */
+let actx=null;
+function ac(){ if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)(); if(actx.state==="suspended") actx.resume(); return actx; }
+function vol(){ return Math.max(0, Math.min(1, settings.volume/100)); }
+
+function tone(freqStart, freqEnd, t0, dur, gainPeak, type){
+  const c=ac(); const osc=c.createOscillator(); const g=c.createGain();
+  osc.type=type||"sine";
+  osc.frequency.setValueAtTime(freqStart, t0);
+  if(freqEnd!==freqStart) osc.frequency.linearRampToValueAtTime(freqEnd, t0+dur);
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.exponentialRampToValueAtTime(Math.max(0.0005,gainPeak*vol()), t0+dur*0.28);
+  g.gain.exponentialRampToValueAtTime(0.0001, t0+dur);
+  osc.connect(g).connect(c.destination);
+  osc.start(t0); osc.stop(t0+dur+0.05);
+}
+// Distinct timbres: inhale = rising sweep, hold = two soft ticks, exhale = longer falling sweep, boredom-end = firm double tone
+function playInhale(){ const t=ac().currentTime; tone(330,560,t,0.55,0.5,"sine"); }
+function playHold(){ const t=ac().currentTime; tone(480,480,t,0.09,0.4,"triangle"); tone(480,480,t+0.16,0.09,0.4,"triangle"); }
+function playExhale(){ const t=ac().currentTime; tone(520,260,t,0.85,0.5,"sine"); }
+function playBoredomEnd(){ const t=ac().currentTime; tone(392,392,t,0.4,0.6,"square"); tone(523,523,t+0.5,0.55,0.6,"square"); }
+function playPhaseSound(type){ if(type==="inhale") playInhale(); else if(type==="exhale") playExhale(); else playHold(); }
+
+/* ============================= NAV ============================= */
+const views=["home","config","session","boredom","builder","stats","settings"];
+function show(id){
+  views.forEach(v=>document.getElementById("view-"+v).classList.toggle("active", v===id));
+}
+document.querySelectorAll("[data-back]").forEach(b=>b.addEventListener("click", ()=>{ show(b.dataset.back); renderHome(); }));
+document.querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click", ()=>{
+  document.querySelectorAll("[data-nav]").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");
+  show(b.dataset.nav);
+  if(b.dataset.nav==="stats") renderStats();
+}));
+
+function toast(msg){
+  const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(toast._h); toast._h=setTimeout(()=>t.classList.remove("show"), 1600);
+}
+
+/* ============================= HOME RENDER ============================= */
+const today = () => { const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); };
+document.getElementById("today-sub").textContent = new Date().toLocaleDateString(undefined,{weekday:"long", day:"numeric", month:"short"});
+
+function breakdownText(p){ return p.phases.map(ph=>ph.dur+"s").join(" · "); }
+
+function renderHome(){
+  const list=document.getElementById("pattern-list"); list.innerHTML="";
+  patterns.forEach(p=>{
+    const el=document.createElement("div"); el.className="card";
+    el.innerHTML = `<div class="info"><p class="name">${escapeHtml(p.name)}</p><p class="sub">${breakdownText(p)}</p></div>
+      <span class="rounds-chip">${p.rounds}×</span><button class="edit-btn">✎</button>`;
+    el.querySelector(".info").addEventListener("click", ()=>openConfig(p.id));
+    el.querySelector(".rounds-chip").addEventListener("click", ()=>openConfig(p.id));
+    el.querySelector(".edit-btn").addEventListener("click", (e)=>{ e.stopPropagation(); openBuilder(p.id); });
+    list.appendChild(el);
+  });
+  document.getElementById("boredom-sub").textContent = boredomCfg.minutes+" min · black screen, no clock";
+  document.getElementById("set-bore-min").textContent = boredomCfg.minutes;
+}
+function escapeHtml(s){ return s.replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+renderHome();
+
+/* ============================= PATTERN CONFIG SHEET ============================= */
+let cfgPatternId=null;
+function openConfig(id){
+  cfgPatternId=id; const p=patterns.find(x=>x.id===id);
+  document.getElementById("cfg-title").textContent=p.name;
+  document.getElementById("cfg-breakdown").textContent=breakdownText(p)+"  →  "+p.phases.map(ph=>ph.label).join(" → ");
+  document.getElementById("cfg-rounds").textContent=p.rounds;
+  document.getElementById("cfg-gap").textContent=p.gap;
+  document.getElementById("cfg-showcount").checked=p.showCount!==false;
+  show("config");
+}
+document.getElementById("cfg-edit").addEventListener("click", ()=>openBuilder(cfgPatternId));
+document.querySelectorAll("#view-config [data-step]").forEach(b=>b.addEventListener("click", ()=>{
+  const p=patterns.find(x=>x.id===cfgPatternId);
+  const target=b.dataset.target==="gap"?"gap":"rounds";
+  const d=parseInt(b.dataset.step,10);
+  if(target==="rounds") p.rounds=Math.max(1, Math.min(60, p.rounds+d));
+  else p.gap=Math.max(0, Math.min(30, p.gap+d));
+  persistPatterns();
+  document.getElementById("cfg-rounds").textContent=p.rounds;
+  document.getElementById("cfg-gap").textContent=p.gap;
+}));
+document.getElementById("cfg-showcount").addEventListener("change", (e)=>{
+  const p=patterns.find(x=>x.id===cfgPatternId); p.showCount=e.target.checked; persistPatterns();
+});
+document.getElementById("cfg-start").addEventListener("click", ()=>startSession(cfgPatternId));
+
+/* ============================= BREATH SESSION ENGINE ============================= */
+let sessTimers=[]; let sessPaused=false; let sessPattern=null; let sessStartedAt=0; let sessRoundIdx=0; let sessPhaseIdx=0; let sessAccumMs=0;
+
+function clearSessTimers(){ sessTimers.forEach(t=>clearTimeout(t)); sessTimers=[]; }
+
+function startSession(id){
+  ac(); // unlock audio on user gesture
+  sessPattern = patterns.find(x=>x.id===id);
+  sessRoundIdx=0; sessPhaseIdx=0; sessPaused=false; sessStartedAt=Date.now();
+  document.getElementById("sess-pname").textContent=sessPattern.name;
+  document.getElementById("sess-round").style.visibility = sessPattern.showCount===false ? "hidden":"visible";
+  document.getElementById("sess-pause").textContent="Pause";
+  show("session");
+  runPhase();
+}
+function runPhase(){
+  if(sessPaused) return;
+  const p=sessPattern;
+  if(sessRoundIdx>=p.rounds){ finishSession(); return; }
+  const ph=p.phases[sessPhaseIdx];
+  document.getElementById("sess-round").textContent=(sessRoundIdx+1)+" / "+p.rounds;
+  document.getElementById("sess-phase").textContent=ph.label;
+  playPhaseSound(ph.type);
+  animateOrb(ph.type, ph.dur);
+  sessTimers.push(setTimeout(()=>{
+    sessPhaseIdx++;
+    if(sessPhaseIdx>=p.phases.length){
+      sessPhaseIdx=0; sessRoundIdx++;
+      if(sessRoundIdx>=p.rounds){ finishSession(); return; }
+      if(p.gap>0){
+        document.getElementById("sess-phase").textContent="…";
+        setOrbNeutral();
+        sessTimers.push(setTimeout(runPhase, p.gap*1000));
+        return;
+      }
+    }
+    runPhase();
+  }, ph.dur*1000));
+}
+function setOrbNeutral(){
+  const orb=document.getElementById("sess-orb");
+  orb.style.transition="transform .6s ease, box-shadow .6s ease";
+  orb.style.transform="scale(0.72)";
+  orb.style.background="radial-gradient(circle at 35% 30%, #4a5560, #2b333c)";
+  orb.style.boxShadow="none";
+}
+function animateOrb(type, dur){
+  const orb=document.getElementById("sess-orb");
+  orb.style.transitionDuration=dur+"s";
+  orb.style.transitionTimingFunction = type==="hold" ? "linear" : "cubic-bezier(.45,0,.4,1)";
+  if(type==="inhale"){
+    orb.style.background="radial-gradient(circle at 35% 30%, #9ee9df, var(--inhale) 60%, #3f958a 100%)";
+    orb.style.boxShadow="0 0 60px -4px rgba(111,209,197,.55)";
+    orb.style.transform="scale(1.35)";
+  } else if(type==="exhale"){
+    orb.style.background="radial-gradient(circle at 35% 30%, #cfc6f0, var(--exhale) 60%, #6c5fa8 100%)";
+    orb.style.boxShadow="0 0 40px -6px rgba(169,155,220,.5)";
+    orb.style.transform="scale(0.75)";
+  } else {
+    orb.style.background="radial-gradient(circle at 35% 30%, #f3d9a8, var(--hold) 60%, #a97c3a 100%)";
+    orb.style.boxShadow="0 0 46px -6px rgba(216,167,86,.5)";
+    // hold: keep current size, no scale change
+  }
+}
+document.getElementById("sess-pause").addEventListener("click", ()=>{
+  sessPaused=!sessPaused;
+  document.getElementById("sess-pause").textContent = sessPaused ? "Resume" : "Pause";
+  if(sessPaused){ clearSessTimers(); }
+  else { runPhase(); }
+});
+document.getElementById("sess-stop").addEventListener("click", ()=>{ finishSession(true); });
+
+function finishSession(early){
+  clearSessTimers();
+  const elapsedMin = Math.max(1, Math.round((Date.now()-sessStartedAt)/60000));
+  logSession(elapsedMin, "breathing");
+  show("home"); renderHome();
+  toast(early ? "Session ended · "+elapsedMin+" min logged" : "Nicely done · "+elapsedMin+" min logged");
+}
+
+/* ============================= BOREDOM ENGINE ============================= */
+const QUOTES=[
+  "You are in boredom.\nDon't look up.\nStay present.",
+  "Nothing to do.\nNowhere to be.\nJust this.",
+  "Let it be dull.\nStay with it anyway.",
+  "The urge will pass.\nYou don't have to follow it."
+];
+let boreTimer=null, boreHoldTimer=null, boreHoldInterval=null;
+
+document.getElementById("card-boredom").addEventListener("click", (e)=>{
+  if(e.target.id==="btn-boredom-edit") return;
+  startBoredom();
+});
+document.getElementById("btn-boredom-edit").addEventListener("click", (e)=>{ e.stopPropagation(); show("settings"); });
+
+function startBoredom(){
+  ac();
+  document.getElementById("bore-quote").textContent = QUOTES[Math.floor(Math.random()*QUOTES.length)];
+  show("boredom");
+  boreTimer = setTimeout(()=>{ playBoredomEnd(); logSession(boredomCfg.minutes, "boredom"); show("home"); renderHome(); }, boredomCfg.minutes*60000);
+}
+const holdEl=document.getElementById("bore-hold");
+const holdCircle=holdEl.querySelector("circle");
+function boreHoldStart(){
+  let t=0; holdCircle.style.transitionDuration="0s"; holdCircle.style.strokeDashoffset=126;
+  boreHoldInterval=setInterval(()=>{
+    t+=50; const frac=Math.min(1, t/2200);
+    holdCircle.style.strokeDashoffset = 126*(1-frac);
+    if(frac>=1){ clearInterval(boreHoldInterval); clearTimeout(boreTimer); show("home"); renderHome(); toast("Boredom timer stopped early"); }
+  },50);
+}
+function boreHoldEnd(){ clearInterval(boreHoldInterval); holdCircle.style.transitionDuration=".3s"; holdCircle.style.strokeDashoffset=126; }
+holdEl.addEventListener("touchstart",(e)=>{e.preventDefault(); boreHoldStart();}, {passive:false});
+holdEl.addEventListener("touchend", boreHoldEnd);
+holdEl.addEventListener("mousedown", boreHoldStart);
+holdEl.addEventListener("mouseup", boreHoldEnd);
+holdEl.addEventListener("mouseleave", boreHoldEnd);
+
+document.querySelectorAll("[data-borestep]").forEach(b=>b.addEventListener("click", ()=>{
+  const d=parseInt(b.dataset.borestep,10);
+  boredomCfg.minutes=Math.max(1, Math.min(120, boredomCfg.minutes+d));
+  persistBoredom();
+  document.getElementById("set-bore-min").textContent=boredomCfg.minutes;
+  document.getElementById("boredom-sub").textContent = boredomCfg.minutes+" min · black screen, no clock";
+}));
+
+/* ============================= SESSION LOG ============================= */
+function logSession(minutes, type){
+  sessions.push({date:today(), minutes, type});
+  persistSessions();
+}
+
+/* ============================= BUILDER ============================= */
+let buildingId=null, buildingPhases=[];
+document.getElementById("btn-new-pattern").addEventListener("click", ()=>openBuilder(null));
+function openBuilder(id){
+  buildingId=id;
+  const p = id ? patterns.find(x=>x.id===id) : null;
+  document.getElementById("b-name").value = p ? p.name : "";
+  buildingPhases = p ? JSON.parse(JSON.stringify(p.phases)) : [
+    {type:"inhale",label:"Breathe in",dur:4},{type:"hold",label:"Hold",dur:4},{type:"exhale",label:"Let go",dur:4}
+  ];
+  document.getElementById("b-delete").style.display = (p && !p.builtin) ? "block" : "none";
+  renderBuilderPhases();
+  show("builder");
+}
+function renderBuilderPhases(){
+  const wrap=document.getElementById("b-phases"); wrap.innerHTML="";
+  const colors={inhale:"var(--inhale)", hold:"var(--hold)", exhale:"var(--exhale)"};
+  buildingPhases.forEach((ph,i)=>{
+    const row=document.createElement("div"); row.className="phase-row";
+    row.innerHTML = `<div class="pr-top">
+        <span><span class="dot" style="background:${colors[ph.type]}"></span>
+        <select class="mini t-type">
+          <option value="inhale" ${ph.type==="inhale"?"selected":""}>Breathe in</option>
+          <option value="hold" ${ph.type==="hold"?"selected":""}>Hold</option>
+          <option value="exhale" ${ph.type==="exhale"?"selected":""}>Let go</option>
+        </select></span>
+        <button class="icon-btn t-remove">✕</button>
+      </div>
+      <div class="row" style="border:none; padding:6px 0 0;">
+        <span style="font-size:12.5px; color:var(--dim);">Duration</span>
+        <div class="stepper"><button class="t-dec">–</button><span class="val t-val">${ph.dur}s</span><button class="t-inc">+</button></div>
+      </div>`;
+    row.querySelector(".t-type").addEventListener("change",(e)=>{
+      ph.type=e.target.value;
+      ph.label = ph.type==="inhale"?"Breathe in":ph.type==="exhale"?"Let go":"Hold";
+      renderBuilderPhases();
+    });
+    row.querySelector(".t-remove").addEventListener("click", ()=>{ buildingPhases.splice(i,1); renderBuilderPhases(); });
+    row.querySelector(".t-dec").addEventListener("click", ()=>{ ph.dur=Math.max(1, ph.dur-1); renderBuilderPhases(); });
+    row.querySelector(".t-inc").addEventListener("click", ()=>{ ph.dur=Math.min(60, ph.dur+1); renderBuilderPhases(); });
+    wrap.appendChild(row);
+  });
+}
+document.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click", ()=>{
+  const type=b.dataset.add;
+  buildingPhases.push({type, label: type==="inhale"?"Breathe in":type==="exhale"?"Let go":"Hold", dur:4});
+  renderBuilderPhases();
+}));
+document.getElementById("b-save").addEventListener("click", ()=>{
+  const name=document.getElementById("b-name").value.trim();
+  if(!name){ toast("Give the pattern a name"); return; }
+  if(buildingPhases.length===0){ toast("Add at least one phase"); return; }
+  if(buildingId){
+    const p=patterns.find(x=>x.id===buildingId);
+    p.name=name; p.phases=buildingPhases;
+  } else {
+    patterns.push({id:"c"+Date.now(), name, builtin:false, rounds:6, gap:0, showCount:true, phases:buildingPhases});
+  }
+  persistPatterns(); show("home"); renderHome(); toast("Saved");
+});
+document.getElementById("b-delete").addEventListener("click", ()=>{
+  patterns = patterns.filter(x=>x.id!==buildingId);
+  persistPatterns(); show("home"); renderHome(); toast("Deleted");
+});
+
+/* ============================= STATS / GRID ============================= */
+function renderStats(){
+  const totalMinutes = sessions.reduce((s,x)=>s+x.minutes,0);
+  document.getElementById("st-minutes").textContent = totalMinutes;
+  document.getElementById("st-sessions").textContent = sessions.length;
+
+  const byDay = {};
+  sessions.forEach(s=>{ byDay[s.date]=(byDay[s.date]||0)+s.minutes; });
+
+  // streak
+  let streak=0; let d=new Date();
+  while(true){
+    const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+    if(byDay[key]){ streak++; d.setDate(d.getDate()-1); } else break;
+  }
+  document.getElementById("st-streak").textContent = streak;
+
+  // grid: last 119 days (17 weeks), Sun-first columns
+  const grid=document.getElementById("grid"); grid.innerHTML="";
+  const days=119;
+  const end=new Date(); end.setHours(0,0,0,0);
+  const start=new Date(end); start.setDate(start.getDate()-days+1);
+  // pad to start on Sunday
+  const lead = start.getDay();
+  for(let i=0;i<lead;i++){ const c=document.createElement("div"); c.className="cell"; c.style.background="transparent"; grid.appendChild(c); }
+  for(let i=0;i<days;i++){
+    const day=new Date(start); day.setDate(day.getDate()+i);
+    const key=day.getFullYear()+"-"+String(day.getMonth()+1).padStart(2,"0")+"-"+String(day.getDate()).padStart(2,"0");
+    const m=byDay[key]||0;
+    const c=document.createElement("div"); c.className="cell";
+    c.title=key+": "+m+" min";
+    c.style.background = m===0?"var(--elevated)": m<10?"#2c6b62": m<20?"#3f958a":"#6fd1c5";
+    grid.appendChild(c);
+  }
+}
+
+/* ============================= SETTINGS ============================= */
+document.getElementById("set-volume").value=settings.volume;
+document.getElementById("set-volume").addEventListener("input", (e)=>{ settings.volume=parseInt(e.target.value,10); persistSettings(); });
+document.getElementById("test-inhale").addEventListener("click", ()=>{ac(); playInhale();});
+document.getElementById("test-hold").addEventListener("click", ()=>{ac(); playHold();});
+document.getElementById("test-exhale").addEventListener("click", ()=>{ac(); playExhale();});
+document.getElementById("test-bore").addEventListener("click", ()=>{ac(); playBoredomEnd();});
+document.getElementById("reset-stats").addEventListener("click", ()=>{
+  if(confirm("Clear all consistency data? This can't be undone.")){ sessions=[]; persistSessions(); renderStats(); toast("Cleared"); }
+});
+
+/* ============================= SERVICE WORKER ============================= */
+if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{ navigator.serviceWorker.register("sw.js").catch(()=>{}); });
+}
+
+})();
+</script>
+</body>
+</html>
